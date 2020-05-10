@@ -4,6 +4,9 @@
 #include <m3dia.hpp>
 #include "squid/engine/window.hpp"
 #include "squid/tools/print.hpp"
+#include "squid/engine/sceneStateMachine.hpp"
+#include "splashScene.hpp"
+#include "gameScene.hpp"
 
 namespace squid
 {
@@ -22,9 +25,10 @@ public:
 private:
     m3d::Applet app;
     squid::Window win;
-    m3d::Sprite spr;
     m3d::Clock clock;
     float deltaTime;
+
+    SceneStateMachine sceneStateMachine;
 };
 
 } // namespace squid
