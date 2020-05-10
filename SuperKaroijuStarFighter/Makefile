@@ -40,9 +40,9 @@ BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
 INCLUDES	:=	include
-GRAPHICS	:=	gfx
+GRAPHICS	:=	assets/gfx
 #GFXBUILD	:=	$(BUILD)
-ROMFS		:=	romfs
+ROMFS		:=	assets
 GFXBUILD	:=	$(ROMFS)/gfx
 
 #---------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++14
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lm3dia -lcitro2d -lcitro3d -lctru -lpng -lm -lz
+LIBS	:= -lm3dia -lcitro2d -lcitro3d -lctru -lpng -lm -lz -lmpg123
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
