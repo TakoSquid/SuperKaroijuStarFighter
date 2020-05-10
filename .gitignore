@@ -39,6 +39,5 @@
 # vscode
 .vscode/
 
-# other build file
-*.lst
-*.map
+# ignore build folder
+./SuperKaroijuStarFighter/build
