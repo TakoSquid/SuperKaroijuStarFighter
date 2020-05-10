@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <3ds.h>
+#include <m3dia.hpp>
 
 int main()
 {
