@@ -40,4 +40,4 @@
 .vscode/
 
 # ignore build folder
-./SuperKaroijuStarFighter/build
+.SuperKaroijuStarFighter/build/
