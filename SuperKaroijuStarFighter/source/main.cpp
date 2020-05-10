@@ -1,29 +1,17 @@
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <3ds.h>
+#include <iostream>
 #include <m3dia.hpp>
 
 int main()
 {
-    gfxInitDefault();
-    consoleInit(GFX_TOP, NULL);
+    m3d::Applet app;
+    m3d::Screen scr;
 
-    printf("Hello, world!\n");
+    consoleInit(GFX_BOTTOM, NULL);
 
-    // Main loop
-    while (aptMainLoop())
+    while (app.isRunning())
     {
-        gspWaitForVBlank();
-        gfxSwapBuffers();
-        hidScanInput();
-
-        // Your code goes here
-        u32 kDown = hidKeysDown();
-        if (kDown & KEY_START)
-            break; // break in order to return to hbmenu
+        scr.render();
     }
 
-    gfxExit();
     return 0;
 }

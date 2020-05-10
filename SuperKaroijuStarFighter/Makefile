@@ -37,9 +37,9 @@ APP_AUTHOR 		:= Tako
 
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
+SOURCES		:=	source source/engine source/engine/tools
 DATA		:=	data
-INCLUDES	:=	include
+INCLUDES	:=	include include/engine include/engine/tools
 GRAPHICS	:=	assets/gfx
 #GFXBUILD	:=	$(BUILD)
 ROMFS		:=	assets
