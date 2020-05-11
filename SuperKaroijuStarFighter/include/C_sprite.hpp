@@ -14,6 +14,9 @@ public:
     void LateUpdate(float deltaTime) override;
     void Draw(Window &window) override;
 
+    void setOpacity(float opacity);
+    void setTint(m3d::Color tint);
+
 private:
     m3d::Sprite spr_;
 };

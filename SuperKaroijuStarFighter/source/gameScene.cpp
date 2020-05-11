@@ -12,7 +12,7 @@ void SceneGame::OnCreate()
     auto player = std::make_shared<Object>();
 
     auto sprite = player->AddComponent<C_Sprite>();
-    sprite->Load(0);
+    sprite->Load(1);
 
     auto movement = player->AddComponent<C_SimpleController>();
 

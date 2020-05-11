@@ -7,6 +7,7 @@
 #include "squid/engine/sceneStateMachine.hpp"
 #include "splashScene.hpp"
 #include "gameScene.hpp"
+#include "titleScreenScene.hpp"
 
 namespace squid
 {

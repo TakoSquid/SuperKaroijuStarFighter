@@ -5,6 +5,7 @@
 #define C_SPRITE 1
 #define C_TRANSFORM 2
 #define C_SIMPLECONTROLLER 3
+#define C_SCROLLINGBACKGROUND 4
 
 namespace squid
 {
