@@ -43,6 +43,7 @@ void C_Sprite::setOpacity(float opacity)
 void C_Sprite::setTint(m3d::Color tint)
 {
     spr_.setTint(tint);
+    spr_.setBlend(tint.getAlpha() / 255.0f);
 }
 
 } // namespace squid

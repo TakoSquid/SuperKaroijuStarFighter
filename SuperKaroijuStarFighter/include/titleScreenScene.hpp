@@ -29,5 +29,6 @@ private:
     unsigned int m_sceneAfterStart;
 
     ObjectCollection m_Objects;
+    std::shared_ptr<squid::C_Sprite> m_karoSprite;
 };
 } // namespace squid

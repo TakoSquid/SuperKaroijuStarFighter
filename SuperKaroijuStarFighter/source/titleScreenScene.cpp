@@ -1,5 +1,7 @@
 #include "titleScreenScene.hpp"
 
+#include "squid/tools/color.hpp"
+
 namespace squid
 {
 TitleScreenScene::TitleScreenScene(SceneStateMachine &sceneStateMachine)
@@ -27,8 +29,8 @@ void TitleScreenScene::OnCreate()
 
     //Karo Géante
     auto karoObj = std::make_shared<Object>();
-    auto sprite = karoObj->AddComponent<C_Sprite>();
-    sprite->Load(1);
+    m_karoSprite = karoObj->AddComponent<C_Sprite>();
+    m_karoSprite->Load(1);
 
     //Adding all objs
     m_Objects.Add(bgObj);
@@ -45,6 +47,14 @@ void TitleScreenScene::Update(float deltaTime)
     m_Objects.ProcessNewObjects();
 
     m_Objects.Update(deltaTime);
+
+    static float time = 0;
+
+    time += deltaTime / 2.0f;
+    m3d::Color c = rainbow(time);
+    c.setAlpha(255.0f * 0.75f);
+
+    m_karoSprite->setTint(c);
 }
 
 void TitleScreenScene::LateUpdate(float deltaTime)
