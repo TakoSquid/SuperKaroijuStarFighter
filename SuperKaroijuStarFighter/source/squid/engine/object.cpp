@@ -4,6 +4,7 @@ namespace squid
 {
 
 Object::Object()
+    : queuedForRemoval(false)
 {
     transform = AddComponent<C_Transform>();
 }
@@ -46,5 +47,15 @@ void Object::Draw(Window &window)
     {
         components_[i]->Draw(window);
     }
+}
+
+void Object::QueueForRemoval()
+{
+    queuedForRemoval = true;
+}
+
+bool Object::IsQueuedForRemoval()
+{
+    return queuedForRemoval;
 }
 } // namespace squid

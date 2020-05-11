@@ -4,6 +4,7 @@
 #include "C_sprite.hpp"
 #include "C_simpleController.hpp"
 #include "object.hpp"
+#include "objectCollection.hpp"
 
 namespace squid
 {
@@ -25,6 +26,6 @@ private:
     SceneStateMachine &sceneStateMachine_;
     unsigned int switchToState_;
 
-    std::shared_ptr<Object> player_;
+    ObjectCollection objects_;
 };
 } // namespace squid

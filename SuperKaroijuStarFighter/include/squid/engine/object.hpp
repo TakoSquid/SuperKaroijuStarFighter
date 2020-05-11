@@ -21,6 +21,9 @@ public:
     void LateUpdate(float deltaTime);
     void Draw(Window &window);
 
+    bool IsQueuedForRemoval();
+    void QueueForRemoval();
+
     template <typename T>
     std::shared_ptr<T> AddComponent()
     {
@@ -65,5 +68,6 @@ public:
 
 private:
     std::vector<std::shared_ptr<Component>> components_;
+    bool queuedForRemoval;
 };
 } // namespace squid

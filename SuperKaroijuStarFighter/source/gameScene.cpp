@@ -9,12 +9,14 @@ SceneGame::SceneGame(SceneStateMachine &sceneStateMachine)
 
 void SceneGame::OnCreate()
 {
-    player_ = std::make_shared<Object>();
+    auto player = std::make_shared<Object>();
 
-    auto sprite = player_->AddComponent<C_Sprite>();
+    auto sprite = player->AddComponent<C_Sprite>();
     sprite->Load(0);
 
-    auto movement = player_->AddComponent<C_SimpleController>();
+    auto movement = player->AddComponent<C_SimpleController>();
+
+    objects_.Add(player);
 }
 
 void SceneGame::OnDestroy()
@@ -23,17 +25,20 @@ void SceneGame::OnDestroy()
 
 void SceneGame::Update(float deltaTime)
 {
-    player_->Update(deltaTime);
+    objects_.ProcessRemovals();
+    objects_.ProcessNewObjects();
+
+    objects_.Update(deltaTime);
 }
 
 void SceneGame::LateUpdate(float deltaTime)
 {
-    player_->LateUpdate(deltaTime);
+    objects_.LateUpdate(deltaTime);
 }
 
 void SceneGame::Draw(Window &window)
 {
-    player_->Draw(window);
+    objects_.Draw(window);
 }
 
 void SceneGame::SetSwitchToScene(unsigned int id)
