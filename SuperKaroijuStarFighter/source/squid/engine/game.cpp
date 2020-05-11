@@ -7,13 +7,14 @@ Game::Game()
     : win{false}
 {
 
-    std::shared_ptr<SplashScene> splashScreen = std::make_shared<SplashScene>(sceneStateMachine, win);
-    std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>();
+    std::shared_ptr<SplashScene> splashScreen = std::make_shared<SplashScene>(sceneStateMachine);
+    std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>(sceneStateMachine);
 
     unsigned int splashScreenID = sceneStateMachine.Add(splashScreen);
     unsigned int gameSceneID = sceneStateMachine.Add(gameScene);
 
     splashScreen->SetSwitchToScene(gameSceneID);
+    gameScene->SetSwitchToScene(splashScreenID);
     sceneStateMachine.SwitchTo(splashScreenID);
 
     clock.start();

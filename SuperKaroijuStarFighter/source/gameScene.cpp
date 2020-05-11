@@ -2,55 +2,42 @@
 
 namespace squid
 {
-SceneGame::SceneGame() : spr_{"romfs:/gfx/images.t3x", 0}
+SceneGame::SceneGame(SceneStateMachine &sceneStateMachine)
+    : sceneStateMachine_{sceneStateMachine}, switchToState_{0}
 {
 }
 
 void SceneGame::OnCreate()
 {
+    player_ = std::make_shared<Object>();
+
+    auto sprite = player_->AddComponent<C_Sprite>();
+    sprite->Load(0);
+
+    auto movement = player_->AddComponent<C_SimpleController>();
 }
 
 void SceneGame::OnDestroy()
 {
 }
 
-void SceneGame::ProcessInput()
-{
-}
-
 void SceneGame::Update(float deltaTime)
 {
-    const m3d::Vector2f &spritePos = m3d::Vector2f{spr_.getXPosition(), spr_.getYPosition()};
-    const int moveSpeed = 100;
+    player_->Update(deltaTime);
+}
 
-    int xMove = 0;
-    if (m3d::buttons::buttonDown(m3d::buttons::Left))
-    {
-        xMove = -moveSpeed;
-    }
-    else if (m3d::buttons::buttonDown(m3d::buttons::Right))
-    {
-        xMove = moveSpeed;
-    }
-
-    int yMove = 0;
-    if (m3d::buttons::buttonDown(m3d::buttons::Up))
-    {
-        yMove = -moveSpeed;
-    }
-    else if (m3d::buttons::buttonDown(m3d::buttons::Down))
-    {
-        yMove = moveSpeed;
-    }
-
-    float xFrameMove = xMove * deltaTime;
-    float yFrameMove = yMove * deltaTime;
-
-    spr_.setPosition(spritePos.u + xFrameMove, spritePos.v + yFrameMove);
+void SceneGame::LateUpdate(float deltaTime)
+{
+    player_->LateUpdate(deltaTime);
 }
 
 void SceneGame::Draw(Window &window)
 {
-    window.Draw(spr_);
+    player_->Draw(window);
+}
+
+void SceneGame::SetSwitchToScene(unsigned int id)
+{
+    switchToState_ = id;
 }
 } // namespace squid

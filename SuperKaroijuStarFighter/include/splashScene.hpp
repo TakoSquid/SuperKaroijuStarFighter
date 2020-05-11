@@ -1,15 +1,13 @@
 #pragma once
 
-#include "squid/engine/scene.hpp"
-#include "squid/engine/sceneStateMachine.hpp"
-#include "squid/engine/window.hpp"
+#include "squid.hpp"
 
 namespace squid
 {
 class SplashScene : public Scene
 {
 public:
-    SplashScene(SceneStateMachine &sceneStateMachine, Window &window);
+    SplashScene(SceneStateMachine &sceneStateMachine);
 
     void OnCreate() override;
     void OnDestroy() override;
@@ -24,7 +22,6 @@ public:
 private:
     m3d::Sprite splashSprite_;
     SceneStateMachine &sceneStateMachine_;
-    Window &window_;
 
     float showForSeconds_;
 

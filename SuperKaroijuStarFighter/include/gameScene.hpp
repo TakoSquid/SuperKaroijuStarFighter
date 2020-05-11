@@ -1,22 +1,30 @@
 #pragma once
 
-#include "squid/engine/scene.hpp"
+#include "squid.hpp"
+#include "C_sprite.hpp"
+#include "C_simpleController.hpp"
+#include "object.hpp"
 
 namespace squid
 {
 class SceneGame : public Scene
 {
 public:
-    SceneGame();
+    SceneGame(SceneStateMachine &sceneStateMachine);
 
     void OnCreate() override;
     void OnDestroy() override;
 
-    void ProcessInput() override;
     void Update(float deltaTime) override;
     void Draw(Window &window) override;
+    void LateUpdate(float deltaTime) override;
+
+    void SetSwitchToScene(unsigned int id);
 
 private:
-    m3d::Sprite spr_;
+    SceneStateMachine &sceneStateMachine_;
+    unsigned int switchToState_;
+
+    std::shared_ptr<Object> player_;
 };
 } // namespace squid

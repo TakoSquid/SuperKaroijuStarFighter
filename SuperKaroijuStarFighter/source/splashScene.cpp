@@ -2,8 +2,8 @@
 
 namespace squid
 {
-SplashScene::SplashScene(SceneStateMachine &sceneStateMachine, Window &window)
-    : splashSprite_{"romfs:/gfx/images.t3x", 0}, sceneStateMachine_{sceneStateMachine}, window_{window}, showForSeconds_{4.0f}, currentSeconds_{0.0f}, switchToState_{0}
+SplashScene::SplashScene(SceneStateMachine &sceneStateMachine)
+    : splashSprite_{"romfs:/gfx/images.t3x", 0}, sceneStateMachine_{sceneStateMachine}, showForSeconds_{4.0f}, currentSeconds_{0.0f}, switchToState_{0}
 {
 }
 

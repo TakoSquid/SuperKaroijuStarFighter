@@ -13,7 +13,6 @@ class SceneStateMachine
 public:
     SceneStateMachine();
 
-    void ProcessInput();
     void Update(float deltaTime);
     void LateUpdate(float deltaTime);
     void Draw(Window &window);

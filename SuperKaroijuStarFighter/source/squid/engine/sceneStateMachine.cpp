@@ -4,14 +4,6 @@ namespace squid
 {
 SceneStateMachine::SceneStateMachine() : scenes(0), curScene(0) {}
 
-void SceneStateMachine::ProcessInput()
-{
-    if (curScene)
-    {
-        curScene->ProcessInput();
-    }
-}
-
 void SceneStateMachine::Update(float deltaTime)
 {
     if (curScene)

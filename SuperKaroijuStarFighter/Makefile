@@ -40,9 +40,9 @@ BUILD		:=	build
 SOURCES		:=	source source/squid source/squid/tools source/squid/engine
 DATA		:=	data
 INCLUDES	:=	include include/squid include/squid/tools include/squid/engine
-GRAPHICS	:=	assets/gfx
+GRAPHICS	:=	gfx
 #GFXBUILD	:=	$(BUILD)
-ROMFS		:=	assets
+ROMFS		:=	romfs
 GFXBUILD	:=	$(ROMFS)/gfx
 
 #---------------------------------------------------------------------------------
@@ -56,7 +56,8 @@ CFLAGS	:=	-g -Wall -O2 -mword-relocations \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS
 
-CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++14
+CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++14 # Bon truc à faire, même si le workaround est crade
+#CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=gnu++14 #<- pu sa mère !! On autorise dynamic_cast itout, pas fou sur un potit proco
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
