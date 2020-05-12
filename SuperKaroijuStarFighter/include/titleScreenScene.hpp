@@ -5,6 +5,7 @@
 #include "squid/engine/objectCollection.hpp"
 #include "C_scrollingBackground.hpp"
 #include "C_sprite.hpp"
+#include "C_followTrail.hpp"
 
 //test
 #include "C_simpleController.hpp"

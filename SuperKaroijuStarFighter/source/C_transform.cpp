@@ -1,5 +1,7 @@
 #include "C_transform.hpp"
 
+#include <iostream>
+
 namespace squid
 {
 C_Transform::C_Transform(Object *owner)
@@ -57,5 +59,10 @@ void C_Transform::AddY(float y)
 const m3d::Vector2f &C_Transform::GetPosition() const
 {
     return position_;
+}
+
+void C_Transform::Draw(Window &window)
+{
+    std::cout << "Position : " << position_.u << '|' << position_.v << std::endl;
 }
 } // namespace squid

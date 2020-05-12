@@ -23,17 +23,12 @@ void C_SimpleController::SetMovementSpeed(int moveSpeed)
 
 void C_SimpleController::Update(float deltaTime)
 {
-
     m3d::Vector2f input = m3d::Vector2f{m3d::circlepad::getXPosition() / 155.0f, m3d::circlepad::getYPosition() / 155.0f};
 
-    printAt(1, 1, std::to_string(input.u));
-    printAt(1, 2, std::to_string(input.v));
-
-    if (abs(input.u) < 0.2f)
-        input.u = 0;
-
-    if (abs(input.v) < 0.2f)
-        input.v = 0;
+    if (sqrt(input.u * input.u + input.v * input.v) < 0.2f)
+    {
+        input = {0, 0};
+    }
 
     int xMove = 0;
     xMove = input.u * moveSpeed;

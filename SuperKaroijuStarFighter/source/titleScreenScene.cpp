@@ -29,12 +29,19 @@ void TitleScreenScene::OnCreate()
 
     //Karo Géante
     auto karoObj = std::make_shared<Object>();
-    m_karoSprite = karoObj->AddComponent<C_Sprite>();
-    m_karoSprite->Load(1);
+    karoObj->transform->SetPosition(0, 120);
+    auto trail = karoObj->AddComponent<C_FollowTrail>();
+
+    //Title
+    auto titleObj = std::make_shared<Object>();
+    titleObj->transform->SetPosition(270, 130);
+    auto titleSprite = titleObj->AddComponent<C_Sprite>();
+    titleSprite->Load(0);
 
     //Adding all objs
     m_Objects.Add(bgObj);
     m_Objects.Add(karoObj);
+    m_Objects.Add(titleObj);
 }
 
 void TitleScreenScene::OnDestroy()
@@ -47,14 +54,6 @@ void TitleScreenScene::Update(float deltaTime)
     m_Objects.ProcessNewObjects();
 
     m_Objects.Update(deltaTime);
-
-    static float time = 0;
-
-    time += deltaTime / 2.0f;
-    m3d::Color c = rainbow(time);
-    c.setAlpha(255.0f * 0.75f);
-
-    m_karoSprite->setTint(c);
 }
 
 void TitleScreenScene::LateUpdate(float deltaTime)

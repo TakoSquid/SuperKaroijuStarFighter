@@ -22,6 +22,8 @@ public:
     void AddX(float x);
     void AddY(float y);
 
+    void Draw(Window& window) override;
+
     const m3d::Vector2f &GetPosition() const;
 
 private:

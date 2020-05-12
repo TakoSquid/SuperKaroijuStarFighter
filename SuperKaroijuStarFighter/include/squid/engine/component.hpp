@@ -6,6 +6,8 @@
 #define C_TRANSFORM 2
 #define C_SIMPLECONTROLLER 3
 #define C_SCROLLINGBACKGROUND 4
+#define C_FOLLOWTRAIL 5
+#define C_OFFSETPAD 6
 
 namespace squid
 {
