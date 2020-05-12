@@ -7,21 +7,20 @@ Game::Game()
     : win{true}
 {
 
-    /*std::shared_ptr<SplashScene> splashScreen = std::make_shared<SplashScene>(sceneStateMachine);
-    std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>(sceneStateMachine);
+    std::shared_ptr<SplashScene> splashScreen = std::make_shared<SplashScene>(sceneStateMachine);
+    //std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>(sceneStateMachine);
+    auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine);
 
     unsigned int splashScreenID = sceneStateMachine.Add(splashScreen);
-    unsigned int gameSceneID = sceneStateMachine.Add(gameScene);
-
-    splashScreen->SetSwitchToScene(gameSceneID);
-    gameScene->SetSwitchToScene(splashScreenID);*/
-
-    auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine);
+    //unsigned int gameSceneID = sceneStateMachine.Add(gameScene);
     unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
 
-    titleScreen->SceneAfterStart(titleScreenID);
+    splashScreen->SetSwitchToScene(titleScreenID);
+    //gameScene->SetSwitchToScene(splashScreenID);
 
-    sceneStateMachine.SwitchTo(titleScreenID);
+    titleScreen->SceneAfterStart(splashScreenID);
+
+    sceneStateMachine.SwitchTo(splashScreenID);
 
     clock.start();
     deltaTime = clock.getTime().getAsSeconds();

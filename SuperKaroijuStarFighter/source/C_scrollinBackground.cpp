@@ -4,8 +4,6 @@ namespace squid
 {
 C_ScrollingBackground::C_ScrollingBackground(Object *owner)
     : Component(owner),
-      m_mainSpr{"romfs:/gfx/images.t3x", 3},
-      m_followSpr{m_mainSpr},
       m_speed{100}
 {
 }

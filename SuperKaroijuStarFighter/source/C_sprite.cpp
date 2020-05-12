@@ -9,9 +9,8 @@
 namespace squid
 {
 C_Sprite::C_Sprite(Object *owner)
-    : Component(owner), spr_{"romfs:/gfx/images.t3x", 0}
+    : Component(owner)
 {
-    spr_.setPosition(owner_->transform->GetPosition());
 }
 
 int C_Sprite::classType()
@@ -23,6 +22,11 @@ void C_Sprite::Load(int id)
 {
     spr_ = m3d::Sprite{"romfs:/gfx/images.t3x", id};
     spr_.setCenterRel(0.5f, 0.5f);
+}
+
+void C_Sprite::Start()
+{
+    spr_.setPosition(owner_->transform->GetPosition());
 }
 
 void C_Sprite::LateUpdate(float deltaTime)
@@ -44,6 +48,11 @@ void C_Sprite::setTint(m3d::Color tint)
 {
     spr_.setTint(tint);
     spr_.setBlend(tint.getAlpha() / 255.0f);
+}
+
+m3d::Vector2f C_Sprite::getSize()
+{
+    return spr_.getSize();
 }
 
 } // namespace squid

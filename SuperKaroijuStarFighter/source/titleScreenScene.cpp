@@ -35,27 +35,43 @@ void TitleScreenScene::OnCreate()
 
     //Title
     auto titleObj = std::make_shared<Object>();
-    titleObj->transform->SetPosition(270, 130);
     auto titleSprite = titleObj->AddComponent<C_Sprite>();
     titleSprite->Load(0);
+    auto towards = titleObj->AddComponent<C_GoTowards>();
+    towards->setGoal(m3d::Vector2f{270, 130});
+    titleObj->transform->SetPosition(270, -titleSprite->getSize().v / 2.0f);
 
     //Adding all objs
     m_Objects.Add(bgObj);
-    m_Objects.Add(karoObj);
     m_Objects.Add(titleObj);
+    m_Objects.Add(karoObj);
 
     m_music.loop(true);
-    m_music.play();
 }
 
 void TitleScreenScene::OnDestroy()
 {
 }
 
+void TitleScreenScene::OnActivate()
+{
+    m_music.play();
+}
+
+void TitleScreenScene::OnDeactivate()
+{
+    m_music.stop();
+}
+
 void TitleScreenScene::Update(float deltaTime)
 {
     m_Objects.ProcessRemovals();
     m_Objects.ProcessNewObjects();
+
+    if (m3d::buttons::buttonPressed(m3d::buttons::B))
+    {
+        m_sceneStateMachine.SwitchTo(m_sceneAfterStart);
+    }
 
     m_Objects.Update(deltaTime);
 }

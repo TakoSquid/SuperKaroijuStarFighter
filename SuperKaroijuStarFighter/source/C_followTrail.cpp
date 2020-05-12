@@ -18,7 +18,7 @@ C_FollowTrail::C_FollowTrail(Object *owner)
 
 void C_FollowTrail::Start()
 {
-    m3d::Sprite tmp{"romfs:/gfx/images.t3x", 1};
+    m3d::Sprite tmp = m3d::Sprite("romfs:/gfx/images.t3x", 1);
     tmp.setCenterRel(.5f, .5f);
 
     m_followSprite.insert(m_followSprite.end(), m_nSprite, tmp);

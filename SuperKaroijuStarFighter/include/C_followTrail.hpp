@@ -22,5 +22,6 @@ private:
     unsigned int m_nSprite;
     float m_distance;
     float m_yOffset;
+    m3d::Sprite m_spriteModel;
 };
 } // namespace squid

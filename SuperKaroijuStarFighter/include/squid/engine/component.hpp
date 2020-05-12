@@ -8,6 +8,7 @@
 #define C_SCROLLINGBACKGROUND 4
 #define C_FOLLOWTRAIL 5
 #define C_OFFSETPAD 6
+#define C_GOTOWARDS 7
 
 namespace squid
 {
