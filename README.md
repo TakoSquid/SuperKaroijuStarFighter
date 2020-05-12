@@ -1,2 +1,2 @@
 # ✨ Super Karoiju Star Fighter ✨
-A little homebrew and game engine experiment
+A little and poorly written homebrew and game engine experiment
