@@ -6,7 +6,8 @@ namespace squid
 {
 TitleScreenScene::TitleScreenScene(SceneStateMachine &sceneStateMachine)
     : m_sceneStateMachine{sceneStateMachine},
-      m_sceneAfterStart{0}
+      m_sceneAfterStart{0},
+      m_music("romfs:/bgm.mp3")
 {
 }
 
@@ -42,6 +43,9 @@ void TitleScreenScene::OnCreate()
     m_Objects.Add(bgObj);
     m_Objects.Add(karoObj);
     m_Objects.Add(titleObj);
+
+    m_music.loop(true);
+    m_music.play();
 }
 
 void TitleScreenScene::OnDestroy()

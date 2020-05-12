@@ -25,7 +25,7 @@ void C_FollowTrail::Start()
 
     for (size_t i = 0; i < m_followSprite.size(); i++)
     {
-        m_followSprite[i].setXPosition(m_followSprite[i].getSize().u);
+        m_followSprite[i].setXPosition(-m_followSprite[i].getSize().u / 2);
 
         if (i != 0)
         {
@@ -45,14 +45,32 @@ void C_FollowTrail::LateUpdate(float deltaTime)
     auto ownerPos = owner_->transform->GetPosition();
 
     static unsigned int index = 0;
-
+    static float xPos = m_followSprite[index].getXPosition();
     static float time = 0;
     time += deltaTime;
     time = fmod(time, 1);
 
+    if (index < m_followSprite.size())
+    {
+        if (m_followSprite[index].getXPosition() < ownerPos.u - index * m_distance)
+        {
+            xPos += 1000.0f * deltaTime;
+            m_followSprite[index].setXPosition(xPos);
+        }
+        else
+        {
+            m_followSprite[index].setXPosition(ownerPos.u - index * m_distance);
+            index += 1;
+            xPos = m_followSprite[index].getXPosition();
+        }
+    }
+
+    m_followSprite[index].moveX(20 * deltaTime);
+
     for (int i = 0; i < (int)m_followSprite.size(); i++)
     {
-        //m_followSprite[i].setPosition(ownerPos.u - i * m_distance, ownerPos.v);
+        m_followSprite[i].setYPosition(ownerPos.v);
+
         m_followSprite[i].moveY(-m_yOffset * sin(m_angle + 3.14f / 16.0f * i));
         if (i != 0)
         {

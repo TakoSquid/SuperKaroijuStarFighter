@@ -31,5 +31,6 @@ private:
 
     ObjectCollection m_Objects;
     std::shared_ptr<squid::C_Sprite> m_karoSprite;
+    m3d::Music m_music;
 };
 } // namespace squid
