@@ -2,6 +2,7 @@
 
 namespace squid
 {
+
 void ObjectCollection::Update(float deltaTime)
 {
     for (auto &o : objects)

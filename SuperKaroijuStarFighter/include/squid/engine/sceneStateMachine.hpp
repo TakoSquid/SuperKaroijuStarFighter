@@ -8,26 +8,29 @@
 
 namespace squid
 {
-class SceneStateMachine
-{
-public:
-    SceneStateMachine();
+    class SceneStateMachine
+    {
+    public:
+        SceneStateMachine();
 
-    void Update(float deltaTime);
-    void LateUpdate(float deltaTime);
-    void Draw(Window &window);
+        void Update(float deltaTime);
+        void LateUpdate(float deltaTime);
+        void Draw(Window &window);
 
-    unsigned int Add(std::shared_ptr<Scene> scene);
+        unsigned int Add(std::shared_ptr<Scene> scene);
 
-    void SwitchTo(unsigned int id);
+        void SwitchTo(unsigned int id);
 
-    void Remove(unsigned int id);
+        void Remove(unsigned int id);
 
-private:
-    std::unordered_map<unsigned int, std::shared_ptr<Scene>> scenes;
+        unsigned int getCurrentSceneId();
 
-    std::shared_ptr<Scene> curScene;
+    private:
+        std::unordered_map<unsigned int, std::shared_ptr<Scene>> scenes;
 
-    unsigned int insertedSceneID;
-};
+        std::shared_ptr<Scene> curScene;
+
+        unsigned int insertedSceneID;
+        unsigned int currentSceneID;
+    };
 } // namespace squid

@@ -6,3 +6,4 @@
 #include "sceneStateMachine.hpp"
 #include "object.hpp"
 #include "component.hpp"
+#include "spriteAllocator.hpp"

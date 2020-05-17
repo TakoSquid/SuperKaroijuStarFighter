@@ -3,61 +3,54 @@
 namespace squid
 {
 
-Game::Game()
-    : win{true}
-{
+    Game::Game()
+        : win{true}
+    {
+        auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine, spriteAllocator);
+        unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
 
-    std::shared_ptr<SplashScene> splashScreen = std::make_shared<SplashScene>(sceneStateMachine);
-    //std::shared_ptr<SceneGame> gameScene = std::make_shared<SceneGame>(sceneStateMachine);
-    auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine);
+        titleScreen->SceneAfterStart(titleScreenID);
 
-    unsigned int splashScreenID = sceneStateMachine.Add(splashScreen);
-    //unsigned int gameSceneID = sceneStateMachine.Add(gameScene);
-    unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
+        sceneStateMachine.SwitchTo(titleScreenID);
 
-    splashScreen->SetSwitchToScene(titleScreenID);
-    //gameScene->SetSwitchToScene(splashScreenID);
+        clock.start();
+        deltaTime = clock.getTime().getAsSeconds();
+    }
 
-    titleScreen->SceneAfterStart(splashScreenID);
+    void Game::Update()
+    {
+        if (m3d::buttons::buttonDown(m3d::buttons::Start) && m3d::buttons::buttonDown(m3d::buttons::Select))
+            app.exit();
 
-    sceneStateMachine.SwitchTo(splashScreenID);
+        win.Update();
 
-    clock.start();
-    deltaTime = clock.getTime().getAsSeconds();
-}
+        sceneStateMachine.Update(deltaTime);
+    }
 
-void Game::Update()
-{
-    if (m3d::buttons::buttonDown(m3d::buttons::Start) && m3d::buttons::buttonDown(m3d::buttons::Select))
-        app.exit();
+    void Game::LateUpdate()
+    {
+        sceneStateMachine.LateUpdate(deltaTime);
+    }
 
-    win.Update();
+    void Game::Draw()
+    {
+        win.BeginDraw();
 
-    sceneStateMachine.Update(deltaTime);
-}
+        sceneStateMachine.Draw(win);
+        std::cout << "current scene : " << sceneStateMachine.getCurrentSceneId() << std::endl;
+        std::cout << "sprite allocator loaded : " << spriteAllocator.nLoadedSprites() << std::endl;
 
-void Game::LateUpdate()
-{
-    sceneStateMachine.LateUpdate(deltaTime);
-}
+        win.EndDraw();
+    }
 
-void Game::Draw()
-{
-    win.BeginDraw();
+    bool Game::IsRunning()
+    {
+        return app.isRunning();
+    }
 
-    sceneStateMachine.Draw(win);
-
-    win.EndDraw();
-}
-
-bool Game::IsRunning()
-{
-    return app.isRunning();
-}
-
-void Game::CalculateDeltaTime()
-{
-    deltaTime = clock.getTime().getAsSeconds();
-    clock.reset();
-}
+    void Game::CalculateDeltaTime()
+    {
+        deltaTime = clock.getTime().getAsSeconds();
+        clock.reset();
+    }
 } // namespace squid
