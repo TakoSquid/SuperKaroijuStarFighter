@@ -22,6 +22,7 @@ namespace squid
 
     private:
         std::vector<m3d::Sprite> m_followSprite;
+        std::vector<bool> m_finished;
         float m_angle;
         unsigned int m_nSprite;
         float m_distance;

@@ -8,6 +8,8 @@
 #include "C_sprite.hpp"
 #include "C_followTrail.hpp"
 #include "C_goTowards.hpp"
+#include "C_offsetPad.hpp"
+#include "C_blinking.hpp"
 
 //test
 #include "C_simpleController.hpp"
@@ -39,5 +41,12 @@ namespace squid
         std::shared_ptr<squid::C_FollowTrail> karoFollowTrail;
 
         std::shared_ptr<squid::Object> titleObj;
+        std::shared_ptr<squid::Object> pressStartObj;
+        std::shared_ptr<squid::C_Blinking> pressStartBling;
+
+        float m_fade;
+
+        m3d::Music m_music;
+        m3d::Sound m_sound;
     };
 } // namespace squid

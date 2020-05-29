@@ -4,14 +4,19 @@ namespace squid
 {
 
     Game::Game()
-        : win{true}
+        : win{true},
+          spriteAllocator("romfs:/gfx/images.t3x")
     {
+
         auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine, spriteAllocator);
         unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
 
-        titleScreen->SceneAfterStart(titleScreenID);
+        auto gameScene = std::make_shared<GameScene>(sceneStateMachine, spriteAllocator);
+        unsigned int gameID = sceneStateMachine.Add(gameScene);
 
-        sceneStateMachine.SwitchTo(titleScreenID);
+        titleScreen->SceneAfterStart(gameID);
+
+        sceneStateMachine.SwitchTo(gameID);
 
         clock.start();
         deltaTime = clock.getTime().getAsSeconds();

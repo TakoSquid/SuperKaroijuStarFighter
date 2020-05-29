@@ -26,12 +26,13 @@ namespace squid
     {
         if (m_spriteAllocator)
         {
-
             m3d::Sprite tmp = m_spriteAllocator->getSprite(id);
             tmp.setCenterRel(.5f, .5f);
 
             m_followSprite.clear();
             m_followSprite.insert(m_followSprite.end(), m_nSprite, tmp);
+            m_finished.clear();
+            m_finished.insert(m_finished.end(), m_nSprite, false);
 
             for (size_t i = 0; i < m_followSprite.size(); i++)
             {
@@ -44,8 +45,7 @@ namespace squid
                 }
             }
 
-            index = 0;
-            xPos = m_followSprite[index].getXPosition();
+            index = m_followSprite.size() - 1;
             time = 0;
         }
     }
@@ -67,13 +67,16 @@ namespace squid
         {
             if (m_followSprite[index].getXPosition() < ownerPos.u - index * m_distance)
             {
-                xPos += 1000.0f * deltaTime;
-                m_followSprite[index].setXPosition(xPos);
+                //xPos += 1000.0f * deltaTime;
+                //m_followSprite[index].setXPosition(xPos);
+
+                m_followSprite[index].moveX(2000.0f * deltaTime);
             }
-            else
+            if (m_followSprite[index].getXPosition() >= ownerPos.u - index * m_distance)
             {
                 m_followSprite[index].setXPosition(ownerPos.u - index * m_distance);
-                index += 1;
+                m_finished[index] = true;
+                index -= 1;
                 xPos = m_followSprite[index].getXPosition();
             }
         }
@@ -81,6 +84,11 @@ namespace squid
         for (int i = 0; i < (int)m_followSprite.size(); i++)
         {
             m_followSprite[i].setYPosition(ownerPos.v);
+
+            if (m_finished[i])
+            {
+                m_followSprite[i].setXPosition(ownerPos.u - i * m_distance);
+            }
 
             m_followSprite[i].moveY(-m_yOffset * sin(m_angle + 3.14f / 16.0f * i));
             if (i != 0)

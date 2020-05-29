@@ -40,7 +40,7 @@ BUILD		:=	build
 SOURCES		:=	source source/squid source/squid/tools source/squid/engine
 DATA		:=	data
 INCLUDES	:=	include include/squid include/squid/tools include/squid/engine
-GRAPHICS	:=	gfx
+GRAPHICS	:=	gfx gfx/Tiles/jungle
 #GFXBUILD	:=	$(BUILD)
 ROMFS		:=	romfs
 GFXBUILD	:=	$(ROMFS)/gfx
@@ -56,13 +56,13 @@ CFLAGS	:=	-g -Wall -O2 -mword-relocations \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS
 
-CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++14 # Bon truc à faire, même si le workaround est crade
+CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++14 -fexceptions# Bon truc à faire, même si le workaround est crade
 #CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=gnu++14 #<- pu sa mère !! On autorise dynamic_cast itout, pas fou sur un potit proco
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:= -lm3dia -lcitro2d -lcitro3d -lctru -lpng -lm -lz -lmpg123
+LIBS	:= -lm3dia -lcitro2d -lcitro3d -lctru -lpng -lm -lz -lmpg123 -ltinyxml2
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing

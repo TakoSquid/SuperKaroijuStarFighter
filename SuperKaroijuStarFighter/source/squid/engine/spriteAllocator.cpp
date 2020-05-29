@@ -3,6 +3,11 @@
 namespace squid
 {
 
+    SpriteAllocator::SpriteAllocator(std::string spriteSheetPath)
+        : m_spriteSheetPath(spriteSheetPath)
+    {
+    }
+
     m3d::Sprite SpriteAllocator::getSprite(unsigned int id)
     {
         auto it = m_sprites.find(id);
@@ -13,7 +18,7 @@ namespace squid
         }
         else
         {
-            m_sprites[id] = m3d::Sprite("romfs:/gfx/images.t3x", id);
+            m_sprites[id] = m3d::Sprite(m_spriteSheetPath, id);
             m_sprites[id].setCenterRel(0.5f, 0.5f);
             return m_sprites[id];
         }

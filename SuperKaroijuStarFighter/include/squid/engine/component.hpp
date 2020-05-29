@@ -9,27 +9,29 @@
 #define C_FOLLOWTRAIL 5
 #define C_OFFSETPAD 6
 #define C_GOTOWARDS 7
+#define C_ANIMATION 8
+#define C_BLINKING 9
 
 namespace squid
 {
 
-class Object;
+    class Object;
 
-class Component
-{
-public:
-    Component(Object *owner);
+    class Component
+    {
+    public:
+        Component(Object *owner);
 
-    virtual void Awake();
-    virtual void Start();
+        virtual void Awake();
+        virtual void Start();
 
-    virtual void Update(float deltaTime);
-    virtual void LateUpdate(float deltaTime);
-    virtual void Draw(Window &window);
+        virtual void Update(float deltaTime);
+        virtual void LateUpdate(float deltaTime);
+        virtual void Draw(Window &window);
 
-    virtual int classType() = 0;
+        virtual int classType() = 0;
 
-protected:
-    Object *owner_;
-};
+    protected:
+        Object *owner_;
+    };
 } // namespace squid

@@ -1,5 +1,6 @@
 #include <m3dia.hpp>
 #include "squid.hpp"
+///////////////
 
 int main()
 {
@@ -9,6 +10,8 @@ int main()
 
     while (game.IsRunning())
     {
+        consoleClear();
+
         game.Update();
         game.LateUpdate();
         squid::printAt(1, 1, "---DEBUG---");
