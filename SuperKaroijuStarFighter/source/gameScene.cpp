@@ -11,14 +11,15 @@ namespace squid
     GameScene::GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor)
         : m_sceneStateMachine{sceneStateMachine},
           m_spriteAllocator{spriteAllocactor},
-          test("romfs:/gfx/jungle.t3x")
+          test("romfs:/gfx/jungle.t3x"),
+          mapParser(test)
     {
     }
 
     void GameScene::OnCreate()
     {
 
-        tinyxml2::XMLDocument xmlDoc;
+        /*tinyxml2::XMLDocument xmlDoc;
         tinyxml2::XMLError eResult = xmlDoc.LoadFile("romfs:/map.xml");
 
         //tinyxml2::XMLNode *pRoot = xmlDoc.FirstChild();
@@ -63,6 +64,13 @@ namespace squid
             float scale = 10.f / 32.0f;
             sprite->setScale(m3d::Vector2f{scale, scale});
             obj->transform->SetPosition(5 + x * 32 * scale, 5 + y * 32 * scale);
+            m_Objects.Add(obj);
+        }*/
+
+        std::vector<std::shared_ptr<Object>> levelTiles = mapParser.Parse("romfs:/map.xml", m3d::Vector2f{16.0f, 16.0f});
+
+        for (auto &obj : levelTiles)
+        {
             m_Objects.Add(obj);
         }
 
@@ -118,6 +126,7 @@ namespace squid
     void GameScene::Draw(Window &window)
     {
         std::cout << "SCENE 2 !!" << std::endl;
+        std::cout << "Il y a : " << m_Objects.getNumberObjects() << " objets dans la scene." << std::endl;
         m_Objects.Draw(window);
     }
 } // namespace squid

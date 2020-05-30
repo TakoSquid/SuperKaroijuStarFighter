@@ -7,6 +7,7 @@
 #include "squid/engine/spriteAllocator.hpp"
 #include "squid/engine/objectCollection.hpp"
 #include "squid/engine/object.hpp"
+#include "squid/engine/tileMapParser.hpp"
 
 ///////////////////////////////////
 #include <iostream>
@@ -39,5 +40,6 @@ namespace squid
 
         std::vector<std::vector<int>> clean;
         SpriteAllocator test;
+        TileMapParser mapParser;
     };
 } // namespace squid

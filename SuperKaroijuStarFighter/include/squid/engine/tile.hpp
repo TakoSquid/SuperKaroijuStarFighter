@@ -8,18 +8,16 @@ namespace squid
 {
     struct TileInfo
     {
-        /*TileInfo() : tileID(-1)
-        {
-        }*/
-
-        TileInfo(SpriteAllocator &spraloc, unsigned int tileID)
-            : spriteAllocator(spraloc),
-              tileID(tileID)
+        TileInfo()
+            : tileID(-1)
         {
         }
 
+        TileInfo(unsigned int tileID)
+            : tileID(tileID)
+        {
+        }
         int tileID;
-        SpriteAllocator &spriteAllocator;
     };
 
     struct Tile

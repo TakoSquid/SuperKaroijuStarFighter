@@ -4,20 +4,28 @@
 #include <string>
 #include <vector>
 #include <m3dia.hpp>
+#include <unordered_map>
+#include <sstream>
+#include <algorithm>
 
 #include "squid/engine/tile.hpp"
 #include "squid/engine/spriteAllocator.hpp"
 #include "squid/engine/object.hpp"
+
+#include "C_sprite.hpp"
+
+#include "tinyxml2.h"
 
 namespace squid
 {
     using Layer = std::vector<std::shared_ptr<Tile>>;
     using MapTiles = std::map<std::string, std::shared_ptr<Layer>>;
     using TileSet = std::unordered_map<unsigned int, std::shared_ptr<TileInfo>>;
+    using TileSheets = std::map<int, std::shared_ptr<TileSheetData>>;
 
     struct TileSheetData
     {
-        SpriteAllocator &spriteAllocator;
+        int nbSprites;
         m3d::Vector2f tileSize;
     };
 
@@ -29,7 +37,9 @@ namespace squid
         std::vector<std::shared_ptr<Object>> Parse(const std::string &file, m3d::Vector2f offset);
 
     private:
-        std::shared_ptr<TileSheetData> BuildTileSheetData();
+        std::shared_ptr<TileSheetData> BuildTileSheetData(tinyxml2::XMLElement *rootNode);
+        std::shared_ptr<MapTiles> BuildMapTiles(tinyxml2::XMLElement *rootNode);
+        std::pair<std::string, std::shared_ptr<Layer>> BuildLayer(tinyxml2::XMLElement *layerNode, std::shared_ptr<TileSheetData> tileSheetData);
 
         SpriteAllocator &m_spriteAllocator;
     };
