@@ -2,7 +2,7 @@
 
 namespace squid
 {
-    SceneStateMachine::SceneStateMachine() : scenes(0), curScene(0), currentSceneID{0} {}
+    SceneStateMachine::SceneStateMachine() : scenes(0), curScene(0), currentSceneID{0}, insertedSceneID{0} {}
 
     void SceneStateMachine::Update(float deltaTime)
     {

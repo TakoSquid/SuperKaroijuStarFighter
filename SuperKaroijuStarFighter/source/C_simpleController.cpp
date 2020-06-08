@@ -54,6 +54,16 @@ namespace squid
         {
             animation->SetAnimationState(squid::AnimationState::Idle);
         }
+
+        if (m3d::buttons::buttonPressed(m3d::buttons::DPadUp))
+        {
+            owner_->SetSortOrder(owner_->GetSortOrder() + 1);
+        }
+
+        if (m3d::buttons::buttonPressed(m3d::buttons::DPadDown))
+        {
+            owner_->SetSortOrder(owner_->GetSortOrder() - 1);
+        }
     }
 
 } // namespace squid

@@ -38,8 +38,8 @@ namespace squid
 
         ObjectCollection m_Objects;
 
-        std::vector<std::vector<int>> clean;
-        SpriteAllocator test;
-        TileMapParser mapParser;
+        //std::vector<std::vector<int>> clean;
+        //SpriteAllocator test;
+        //TileMapParser mapParser;
     };
 } // namespace squid

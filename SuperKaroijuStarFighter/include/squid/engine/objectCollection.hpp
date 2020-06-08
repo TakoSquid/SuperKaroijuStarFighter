@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <algorithm>
 
 #include "squid/engine/object.hpp"
 
@@ -22,6 +23,7 @@ namespace squid
         unsigned int getNumberObjects();
 
     private:
+        void Sort();
         std::vector<std::shared_ptr<Object>> objects;
         std::vector<std::shared_ptr<Object>> newObjects;
     };

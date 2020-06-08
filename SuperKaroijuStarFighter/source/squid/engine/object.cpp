@@ -3,59 +3,70 @@
 namespace squid
 {
 
-Object::Object()
-    : queuedForRemoval(false)
-{
-    transform = AddComponent<C_Transform>();
-}
-
-void Object::Awake()
-{
-    for (int i = components_.size() - 1; i >= 0; i--)
+    Object::Object()
+        : queuedForRemoval(false),
+          sortOrder(0)
     {
-        components_[i]->Awake();
+        transform = AddComponent<C_Transform>();
     }
-}
 
-void Object::Start()
-{
-    for (int i = components_.size() - 1; i >= 0; i--)
+    void Object::Awake()
     {
-        components_[i]->Start();
+        for (int i = components_.size() - 1; i >= 0; i--)
+        {
+            components_[i]->Awake();
+        }
     }
-}
 
-void Object::Update(float timeDelta)
-{
-    for (int i = components_.size() - 1; i >= 0; i--)
+    void Object::Start()
     {
-        components_[i]->Update(timeDelta);
+        for (int i = components_.size() - 1; i >= 0; i--)
+        {
+            components_[i]->Start();
+        }
     }
-}
 
-void Object::LateUpdate(float timeDelta)
-{
-    for (int i = components_.size() - 1; i >= 0; i--)
+    void Object::Update(float timeDelta)
     {
-        components_[i]->LateUpdate(timeDelta);
+        for (int i = components_.size() - 1; i >= 0; i--)
+        {
+            components_[i]->Update(timeDelta);
+        }
     }
-}
 
-void Object::Draw(Window &window)
-{
-    for (int i = components_.size() - 1; i >= 0; i--)
+    void Object::LateUpdate(float timeDelta)
     {
-        components_[i]->Draw(window);
+        for (int i = components_.size() - 1; i >= 0; i--)
+        {
+            components_[i]->LateUpdate(timeDelta);
+        }
     }
-}
 
-void Object::QueueForRemoval()
-{
-    queuedForRemoval = true;
-}
+    void Object::Draw(Window &window)
+    {
+        for (int i = components_.size() - 1; i >= 0; i--)
+        {
+            components_[i]->Draw(window);
+        }
+    }
 
-bool Object::IsQueuedForRemoval()
-{
-    return queuedForRemoval;
-}
+    void Object::QueueForRemoval()
+    {
+        queuedForRemoval = true;
+    }
+
+    bool Object::IsQueuedForRemoval()
+    {
+        return queuedForRemoval;
+    }
+
+    void Object::SetSortOrder(int order)
+    {
+        sortOrder = order;
+    }
+
+    int Object::GetSortOrder() const
+    {
+        return sortOrder;
+    }
 } // namespace squid

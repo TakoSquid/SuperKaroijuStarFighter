@@ -9,65 +9,74 @@
 
 namespace squid
 {
-class Object
-{
-public:
-    Object();
-
-    void Awake(); //Make sure requiered compo is present
-    void Start(); //Init variables
-
-    void Update(float deltaTime);
-    void LateUpdate(float deltaTime);
-    void Draw(Window &window);
-
-    bool IsQueuedForRemoval();
-    void QueueForRemoval();
-
-    template <typename T>
-    std::shared_ptr<T> AddComponent()
+    class Object
     {
-        static_assert(std::is_base_of<Component, T>::value,
-                      "T must derive from Component");
+    public:
+        Object();
 
-        std::shared_ptr<T> newComponent = std::make_shared<T>(this);
+        void Awake(); //Make sure requiered compo is present
+        void Start(); //Init variables
 
-        for (auto &exisitingComponent : components_)
+        void Update(float deltaTime);
+        void LateUpdate(float deltaTime);
+        void Draw(Window &window);
+
+        bool IsQueuedForRemoval();
+        void QueueForRemoval();
+
+        template <typename T>
+        std::shared_ptr<T> AddComponent()
         {
-            if (newComponent->classType() == exisitingComponent->classType())
+            static_assert(std::is_base_of<Component, T>::value, "T must derive from Component");
+
+            std::shared_ptr<T> newComponent = std::make_shared<T>(this);
+
+            for (auto &exisitingComponent : components_)
             {
-                return std::static_pointer_cast<T>(exisitingComponent);
+                if (newComponent->classType() == exisitingComponent->classType())
+                {
+                    return std::static_pointer_cast<T>(exisitingComponent);
+                }
             }
-        }
 
-        components_.push_back(newComponent);
+            components_.push_back(newComponent);
 
-        return newComponent;
-    };
+            if (newComponent->classType() == C_SPRITE)
+            {
+                // drawable = std::dynamic_pointer_cast<C_Drawable>(newComponent);
+            }
 
-    template <typename T>
-    std::shared_ptr<T> GetComponent()
-    {
-        static_assert(std::is_base_of<Component, T>::value,
-                      "T must derive from Component");
+            return newComponent;
+        };
 
-        std::shared_ptr<T> newComponent = std::make_shared<T>(this);
-
-        for (auto &exisitingComponent : components_)
+        template <typename T>
+        std::shared_ptr<T> GetComponent()
         {
-            if (newComponent->classType() == exisitingComponent->classType())
+            static_assert(std::is_base_of<Component, T>::value,
+                          "T must derive from Component");
+
+            std::shared_ptr<T> newComponent = std::make_shared<T>(this);
+
+            for (auto &exisitingComponent : components_)
             {
-                return std::static_pointer_cast<T>(exisitingComponent);
+                if (newComponent->classType() == exisitingComponent->classType())
+                {
+                    return std::static_pointer_cast<T>(exisitingComponent);
+                }
             }
-        }
 
-        return nullptr;
+            return nullptr;
+        }; 
+
+        void SetSortOrder(int order);
+        int GetSortOrder() const;
+
+        std::shared_ptr<C_Transform> transform;
+
+    private:
+        std::vector<std::shared_ptr<Component>> components_;
+        bool queuedForRemoval;
+
+        int sortOrder;
     };
-
-    std::shared_ptr<C_Transform> transform;
-
-private:
-    std::vector<std::shared_ptr<Component>> components_;
-    bool queuedForRemoval;
-};
 } // namespace squid

@@ -43,6 +43,8 @@ namespace squid
             objects.insert(objects.end(), newObjects.begin(), newObjects.end());
 
             newObjects.clear();
+
+            Sort();
         }
     }
 
@@ -67,5 +69,14 @@ namespace squid
     unsigned int ObjectCollection::getNumberObjects()
     {
         return objects.size();
+    }
+
+    void ObjectCollection::Sort()
+    {
+        std::sort(
+            objects.begin(), objects.end(),
+            [](std::shared_ptr<Object> a, std::shared_ptr<Object> b) -> bool {
+                return a->GetSortOrder() < b->GetSortOrder();
+            });
     }
 } // namespace squid

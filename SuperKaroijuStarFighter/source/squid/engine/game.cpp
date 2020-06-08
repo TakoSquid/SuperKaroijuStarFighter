@@ -14,9 +14,9 @@ namespace squid
         auto gameScene = std::make_shared<GameScene>(sceneStateMachine, spriteAllocator);
         unsigned int gameID = sceneStateMachine.Add(gameScene);
 
-        titleScreen->SceneAfterStart(gameID);
+        titleScreen->SceneAfterStart(titleScreenID);
 
-        sceneStateMachine.SwitchTo(gameID);
+        sceneStateMachine.SwitchTo(titleScreenID);
 
         clock.start();
         deltaTime = clock.getTime().getAsSeconds();

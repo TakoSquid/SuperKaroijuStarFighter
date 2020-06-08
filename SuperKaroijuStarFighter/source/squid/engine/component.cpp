@@ -2,15 +2,18 @@
 
 namespace squid
 {
-Component::Component(Object *owner) : owner_{owner} {}
+    Component::Component(Object *owner)
+        : owner_{owner}
+    {
+    }
 
-void Component::Awake(){};
+    void Component::Awake(){};
 
-void Component::Start(){};
+    void Component::Start(){};
 
-void Component::Update(float deltaTime){};
+    void Component::Update(float deltaTime){};
 
-void Component::LateUpdate(float deltaTime){};
+    void Component::LateUpdate(float deltaTime){};
 
-void Component::Draw(Window &window){};
+    void Component::Draw(Window &window){};
 } // namespace squid
