@@ -31,7 +31,7 @@ namespace squid
         for (const auto &layer : *tiles)
         {
             lay--;
-            for (const auto &tile : *layer.second)
+            for (const auto &tile : layer.second->tiles)
             {
                 std::shared_ptr<TileInfo> tileInfo = tile->properties;
                 std::shared_ptr<Object> tileObject = std::make_shared<Object>();
@@ -42,6 +42,7 @@ namespace squid
                 sprite->setAllocator(&m_spriteAllocator);
                 sprite->Load(tile->properties->tileID - 1);
                 sprite->setScale(m3d::Vector2f{tileScale, tileScale});
+                sprite->setOpacity(layer.second->opacity);
 
                 float x = tile->x * tileSizeX * tileScale + offset.u;
                 float y = tile->y * tileSizeY * tileScale + offset.v;
@@ -94,6 +95,15 @@ namespace squid
         int height;
         layerNode->QueryIntAttribute("width", &height);
 
+        float opacity = 1.0f;
+
+        if (layerNode->QueryFloatAttribute("opacity", &opacity) == tinyxml2::XML_NO_ATTRIBUTE)
+        {
+            opacity = 1.0f;
+        }
+
+        layer->opacity = opacity;
+
         tinyxml2::XMLElement *dataNode = layerNode->FirstChildElement("data");
 
         std::string rawData = dataNode->GetText();
@@ -128,7 +138,7 @@ namespace squid
                 tile->x = i % width;
                 tile->y = i / width;
 
-                layer->emplace_back(tile);
+                layer->tiles.emplace_back(tile);
             }
         }
 

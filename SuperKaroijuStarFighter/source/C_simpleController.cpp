@@ -23,7 +23,7 @@ namespace squid
 
     void C_SimpleController::Awake()
     {
-        animation = owner_->GetComponent<C_Animation>();
+        // animation = owner_->GetComponent<C_Animation>();
     }
 
     void C_SimpleController::Update(float deltaTime)
@@ -46,13 +46,16 @@ namespace squid
 
         owner_->transform->AddPosition(xFrameMove, yFrameMove);
 
-        if (xFrameMove != 0 || yFrameMove != 0)
+        if (animation)
         {
-            animation->SetAnimationState(squid::AnimationState::SlowFly);
-        }
-        else
-        {
-            animation->SetAnimationState(squid::AnimationState::Idle);
+            if (xFrameMove != 0 || yFrameMove != 0)
+            {
+                animation->SetAnimationState(squid::AnimationState::SlowFly);
+            }
+            else
+            {
+                animation->SetAnimationState(squid::AnimationState::Idle);
+            }
         }
 
         if (m3d::buttons::buttonPressed(m3d::buttons::DPadUp))
@@ -64,6 +67,11 @@ namespace squid
         {
             owner_->SetSortOrder(owner_->GetSortOrder() - 1);
         }
+    }
+
+    void C_SimpleController::setAnimation(std::shared_ptr<C_Animation> anim)
+    {
+        animation = anim;
     }
 
 } // namespace squid

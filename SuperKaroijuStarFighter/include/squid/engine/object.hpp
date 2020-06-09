@@ -66,7 +66,7 @@ namespace squid
             }
 
             return nullptr;
-        }; 
+        };
 
         void SetSortOrder(int order);
         int GetSortOrder() const;

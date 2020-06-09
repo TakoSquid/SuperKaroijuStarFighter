@@ -33,6 +33,8 @@ namespace squid
 
         const AnimationState &GetAnimationState() const;
 
+        void setSprite(std::shared_ptr<squid::C_Sprite> spr);
+
     private:
         std::shared_ptr<C_Sprite> sprite;
         std::map<AnimationState, std::shared_ptr<Animation>> animations;

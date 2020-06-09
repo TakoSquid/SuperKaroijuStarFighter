@@ -15,12 +15,12 @@ namespace squid
 
     void C_Animation::Awake()
     {
-        sprite = owner_->GetComponent<C_Sprite>();
+        // sprite = owner_->GetComponent<C_Sprite>();
     }
 
     void C_Animation::Update(float deltaTime)
     {
-        if (currentAnimation.first != AnimationState::None)
+        if (currentAnimation.first != AnimationState::None && sprite)
         {
             bool newFrame = currentAnimation.second->UpdateFrame(deltaTime);
 
@@ -49,7 +49,7 @@ namespace squid
         }
 
         auto animation = animations.find(state);
-        if (animation != animations.end())
+        if (animation != animations.end() && sprite)
         {
             currentAnimation.first = animation->first;
             currentAnimation.second = animation->second;
@@ -63,6 +63,11 @@ namespace squid
     const AnimationState &C_Animation::GetAnimationState() const
     {
         return currentAnimation.first;
+    }
+
+    void C_Animation::setSprite(std::shared_ptr<squid::C_Sprite> spr)
+    {
+        sprite = spr;
     }
 
 } // namespace squid

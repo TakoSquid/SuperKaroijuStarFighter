@@ -18,7 +18,13 @@
 
 namespace squid
 {
-    using Layer = std::vector<std::shared_ptr<Tile>>;
+
+    struct Layer
+    {
+        std::vector<std::shared_ptr<Tile>> tiles;
+        float opacity;
+    };
+
     using MapTiles = std::map<std::string, std::shared_ptr<Layer>>;
     using TileSet = std::unordered_map<unsigned int, std::shared_ptr<TileInfo>>;
 

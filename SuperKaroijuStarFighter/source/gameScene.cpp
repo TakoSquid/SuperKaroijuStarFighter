@@ -10,21 +10,20 @@ namespace squid
 {
     GameScene::GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor)
         : m_sceneStateMachine{sceneStateMachine},
-          m_spriteAllocator{spriteAllocactor}
-    //   ,test("romfs:/gfx/jungle.t3x"),
-    //   mapParser(test)
+          m_spriteAllocator{spriteAllocactor}, test("romfs:/gfx/jungle.t3x"),
+          mapParser(test)
     {
     }
 
     void GameScene::OnCreate()
     {
 
-        // std::vector<std::shared_ptr<Object>> levelTiles = mapParser.Parse("romfs:/map.xml", m3d::Vector2f{16.0f, 16.0f});
+        std::vector<std::shared_ptr<Object>> levelTiles = mapParser.Parse("romfs:/map.xml", m3d::Vector2f{16.0f, 16.0f});
 
-        // for (auto &obj : levelTiles)
-        // {
-        //     m_Objects.Add(obj);
-        // }
+        for (auto &obj : levelTiles)
+        {
+            m_Objects.Add(obj);
+        }
 
         auto player = std::make_shared<Object>();
         player->transform->SetPosition(200, 120);
@@ -35,9 +34,11 @@ namespace squid
         sprite->Load(10);
         sprite->flipX(true);
 
-        player->AddComponent<C_SimpleController>();
-
         auto animation = player->AddComponent<C_Animation>();
+        animation->setSprite(sprite);
+
+        auto controller = player->AddComponent<C_SimpleController>();
+        controller->setAnimation(animation);
 
         std::shared_ptr<Animation> idleAnimation = std::make_shared<Animation>();
 
@@ -78,7 +79,6 @@ namespace squid
     }
     void GameScene::Draw(Window &window)
     {
-        std::cout << "SCENE 2 !!" << std::endl;
         std::cout << "Il y a : " << m_Objects.getNumberObjects() << " objets dans la scene." << std::endl;
         m_Objects.Draw(window);
     }

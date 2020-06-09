@@ -16,6 +16,8 @@ namespace squid
         void Awake() override;
         void Update(float deltaTime) override;
 
+        void setAnimation(std::shared_ptr<C_Animation> anim);
+
     private:
         int moveSpeed;
         std::shared_ptr<C_Animation> animation;
