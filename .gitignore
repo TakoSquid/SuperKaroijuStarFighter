@@ -39,5 +39,8 @@
 # vscode
 .vscode/
 
+# ignore graphic test stuff
+tmp_spr/
+
 # ignore build folder
 SuperKaroijuStarFighter/build/

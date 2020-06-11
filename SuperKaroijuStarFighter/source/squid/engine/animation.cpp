@@ -54,4 +54,16 @@ namespace squid
         currentFrameIndex = 0;
         currentFrameTime = 0;
     }
+
+    std::vector<int> Animation::getFramesSpriteIds()
+    {
+        std::vector<int> framesIds;
+
+        for (const auto &frame : frames)
+        {
+            framesIds.emplace_back(frame.id);
+        }
+
+        return framesIds;
+    }
 } // namespace squid

@@ -18,5 +18,6 @@ namespace squid
     private:
         std::string m_spriteSheetPath;
         std::map<int, m3d::Sprite> m_sprites;
+        bool done;
     };
 } // namespace squid

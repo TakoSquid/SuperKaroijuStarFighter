@@ -4,7 +4,8 @@ namespace squid
 {
 
     SpriteAllocator::SpriteAllocator(std::string spriteSheetPath)
-        : m_spriteSheetPath(spriteSheetPath)
+        : m_spriteSheetPath(spriteSheetPath),
+          done(false)
     {
     }
 
@@ -22,6 +23,8 @@ namespace squid
             m_sprites[id].setCenterRel(0.5f, 0.5f);
             return m_sprites[id];
         }
+
+        return m_sprites[id];
     }
 
     unsigned int SpriteAllocator::nLoadedSprites()

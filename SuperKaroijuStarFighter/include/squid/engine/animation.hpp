@@ -24,6 +24,8 @@ namespace squid
 
         void Reset();
 
+        std::vector<int> getFramesSpriteIds();
+
     private:
         void IncrementFrame();
 

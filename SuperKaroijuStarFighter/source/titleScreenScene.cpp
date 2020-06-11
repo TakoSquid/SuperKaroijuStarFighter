@@ -26,12 +26,9 @@ namespace squid
         auto bgObj = std::make_shared<Object>();
         bgObj->transform->SetPosition(200, 120);
 
-        auto spriteCompo = bgObj->AddComponent<C_Sprite>();
-        spriteCompo->setAllocator(&m_spriteAllocator);
-        spriteCompo->Load(7);
-
         auto scrollCompo = bgObj->AddComponent<C_ScrollingBackground>();
         scrollCompo->setAllocator(&m_spriteAllocator);
+        scrollCompo->SetSpriteId(3);
         scrollCompo->SetSpeed(200.0f);
 
         //Karo Géante
@@ -58,7 +55,7 @@ namespace squid
 
         auto titleSpriteJr = pressStartObj->AddComponent<C_Sprite>();
         titleSpriteJr->setAllocator(&m_spriteAllocator);
-        titleSpriteJr->Load(8);
+        titleSpriteJr->Load(5);
 
         auto titleGoTowardsJr = pressStartObj->AddComponent<C_GoTowards>();
 

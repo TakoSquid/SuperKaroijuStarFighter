@@ -20,6 +20,7 @@ namespace squid
         void setOpacity(float opacity);
         void setTint(m3d::Color tint);
         void setAllocator(SpriteAllocator *spriteAllocator);
+        SpriteAllocator *getAllocator();
         void setScale(m3d::Vector2f scale);
         void flipX(bool flipX);
         void flipY(bool flipY);

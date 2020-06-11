@@ -16,7 +16,7 @@ namespace squid
 
         titleScreen->SceneAfterStart(gameID);
 
-        sceneStateMachine.SwitchTo(titleScreenID);
+        sceneStateMachine.SwitchTo(gameID);
 
         clock.start();
         deltaTime = clock.getTime().getAsSeconds();

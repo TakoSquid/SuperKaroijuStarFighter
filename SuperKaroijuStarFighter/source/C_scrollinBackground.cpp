@@ -37,7 +37,6 @@ namespace squid
 
     void C_ScrollingBackground::Start()
     {
-        SetSpriteId(3);
     }
 
     void C_ScrollingBackground::Update(float deltaTime)

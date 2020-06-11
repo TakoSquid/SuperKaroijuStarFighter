@@ -39,6 +39,11 @@ namespace squid
 
         if (currentAnimation.first == AnimationState::None)
             SetAnimationState(state);
+
+        for (const auto &id : animation->getFramesSpriteIds())
+        {
+            sprite->getAllocator()->getSprite(id);
+        }
     }
 
     void C_Animation::SetAnimationState(AnimationState state)

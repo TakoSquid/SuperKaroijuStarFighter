@@ -60,6 +60,11 @@ namespace squid
         m_SpriteAllocator = spriteAllocator;
     }
 
+    SpriteAllocator *C_Sprite::getAllocator()
+    {
+        return m_SpriteAllocator;
+    }
+
     m3d::Vector2f C_Sprite::getSize()
     {
         return spr_.getSize();
