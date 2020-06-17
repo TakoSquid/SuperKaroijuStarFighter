@@ -5,20 +5,22 @@
 
 namespace squid
 {
-class C_GoTowards : public Component
-{
-public:
-    C_GoTowards(Object *owner);
-    int classType() override;
-    void setGoal(m3d::Vector2f goal);
+    class C_GoTowards : public Component
+    {
+    public:
+        C_GoTowards(Object *owner);
+        int classType() override;
+        void setGoal(m3d::Vector2f goal);
 
-    void Start() override;
-    void setSpeed(float speed);
-    void Update(float deltaTime) override;
+        void Start() override;
+        void setSpeed(float speed);
+        void Update(float deltaTime) override;
 
-private:
-    m3d::Vector2f m_goal;
-    float m_speed;
-    bool m_done;
-};
+        bool done() const;
+
+    private:
+        m3d::Vector2f m_goal;
+        float m_speed;
+        bool m_done;
+    };
 } // namespace squid

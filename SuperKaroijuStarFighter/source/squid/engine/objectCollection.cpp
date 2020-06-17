@@ -7,6 +7,8 @@ namespace squid
     {
         for (auto &o : objects)
             o->Update(deltaTime);
+
+        collidables.Update();
     }
 
     void ObjectCollection::LateUpdate(float deltaTime)
@@ -19,6 +21,8 @@ namespace squid
     {
         for (auto &o : objects)
             o->Draw(window);
+
+        std::cout << "Nb Collidables : " << S_Collidable::nbAddCalled << std::endl;
     }
 
     void ObjectCollection::Add(std::shared_ptr<Object> object)
@@ -42,6 +46,8 @@ namespace squid
 
             objects.insert(objects.end(), newObjects.begin(), newObjects.end());
 
+            collidables.Add(newObjects);
+
             newObjects.clear();
 
             Sort();
@@ -50,19 +56,27 @@ namespace squid
 
     void ObjectCollection::ProcessRemovals()
     {
+        bool removed = false;
         auto objIterator = objects.begin();
+
         while (objIterator != objects.end())
         {
-            auto obj = **objIterator;
+            auto obj = *objIterator;
 
-            if (obj.IsQueuedForRemoval())
+            if (obj->IsQueuedForRemoval())
             {
                 objIterator = objects.erase(objIterator);
+                removed = true;
             }
             else
             {
                 ++objIterator;
             }
+        }
+
+        if (removed)
+        {
+            collidables.ProcessRemovals();
         }
     }
 

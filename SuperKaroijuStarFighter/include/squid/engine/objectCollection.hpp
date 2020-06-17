@@ -5,6 +5,7 @@
 #include <algorithm>
 
 #include "squid/engine/object.hpp"
+#include "squid/engine/S_Collidable.hpp"
 
 namespace squid
 {
@@ -26,5 +27,6 @@ namespace squid
         void Sort();
         std::vector<std::shared_ptr<Object>> objects;
         std::vector<std::shared_ptr<Object>> newObjects;
+        S_Collidable collidables;
     };
 } // namespace squid

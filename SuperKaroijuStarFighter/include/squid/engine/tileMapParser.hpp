@@ -13,6 +13,7 @@
 #include "squid/engine/object.hpp"
 
 #include "C_sprite.hpp"
+#include "C_boxCollider.hpp"
 
 #include "tinyxml2.h"
 

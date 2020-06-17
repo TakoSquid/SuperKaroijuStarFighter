@@ -6,6 +6,7 @@
 #include "squid/engine/window.hpp"
 #include "squid/engine/component.hpp"
 #include "C_transform.hpp"
+#include "C_instanceId.hpp"
 
 namespace squid
 {
@@ -14,8 +15,8 @@ namespace squid
     public:
         Object();
 
-        void Awake(); //Make sure requiered compo is present
-        void Start(); //Init variables
+        void Awake();
+        void Start();
 
         void Update(float deltaTime);
         void LateUpdate(float deltaTime);
@@ -27,7 +28,6 @@ namespace squid
         template <typename T>
         std::shared_ptr<T> AddComponent()
         {
-            static_assert(std::is_base_of<Component, T>::value, "T must derive from Component");
 
             std::shared_ptr<T> newComponent = std::make_shared<T>(this);
 
@@ -41,19 +41,12 @@ namespace squid
 
             components_.push_back(newComponent);
 
-            if (newComponent->classType() == C_SPRITE)
-            {
-                // drawable = std::dynamic_pointer_cast<C_Drawable>(newComponent);
-            }
-
             return newComponent;
         };
 
         template <typename T>
         std::shared_ptr<T> GetComponent()
         {
-            static_assert(std::is_base_of<Component, T>::value,
-                          "T must derive from Component");
 
             std::shared_ptr<T> newComponent = std::make_shared<T>(this);
 
@@ -71,12 +64,17 @@ namespace squid
         void SetSortOrder(int order);
         int GetSortOrder() const;
 
+        void SetDrawLayer(DrawLayer drawLayer);
+        DrawLayer GetDrawLayer() const;
+
         std::shared_ptr<C_Transform> transform;
+        std::shared_ptr<C_InstanceID> instanceID;
 
     private:
         std::vector<std::shared_ptr<Component>> components_;
         bool queuedForRemoval;
 
         int sortOrder;
+        DrawLayer layer;
     };
 } // namespace squid

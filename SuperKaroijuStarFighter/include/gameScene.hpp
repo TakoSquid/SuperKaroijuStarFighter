@@ -9,6 +9,10 @@
 #include "squid/engine/object.hpp"
 #include "squid/engine/tileMapParser.hpp"
 
+#include "C_goTowards.hpp"
+
+// #include "squid/engine/debug.hpp"
+
 ///////////////////////////////////
 #include <iostream>
 #include <cstdio>
@@ -41,5 +45,7 @@ namespace squid
         std::vector<std::vector<int>> clean;
         SpriteAllocator test;
         TileMapParser mapParser;
+
+        std::shared_ptr<C_GoTowards> platformGoTowards;
     };
 } // namespace squid

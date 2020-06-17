@@ -50,6 +50,18 @@ namespace squid
                 tileObject->transform->SetPosition(x, y);
                 tileObject->SetSortOrder(lay);
 
+                if (layer.first == "1 - Collisions")
+                {
+                    auto collider = tileObject->AddComponent<C_BoxCollider>();
+                    float left = x - (tileSizeX * tileScale) * 0.5f;
+                    float top = y - (tileSizeY * tileScale) * 0.5f;
+                    float width = tileSizeX * tileScale;
+                    float height = tileSizeY * tileScale;
+
+                    collider->SetCollidable(m3d::BoundingBox(left, top, width, height));
+                    collider->SetLayer(CollisionLayer::Tile);
+                }
+
                 tileObjects.emplace_back(tileObject);
             }
         }

@@ -4,21 +4,21 @@
 
 namespace squid
 {
-class Window
-{
-public:
-    Window(bool enable3d);
+    class Window
+    {
+    public:
+        Window(bool enable3d);
 
-    void Update();
+        void Update();
 
-    void BeginDraw();
-    void Draw(m3d::Drawable &drawable);
-    void EndDraw();
+        void BeginDraw();
+        void Draw(m3d::Drawable &drawable);
+        void EndDraw();
 
-    bool IsOpen() const;
+        bool IsOpen() const;
 
-private:
-    m3d::Screen scr;
-};
+    private:
+        m3d::Screen scr;
+    };
 
 } // namespace squid

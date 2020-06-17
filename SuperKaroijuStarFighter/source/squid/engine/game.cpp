@@ -8,13 +8,13 @@ namespace squid
           spriteAllocator("romfs:/gfx/images.t3x")
     {
 
-        auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine, spriteAllocator);
-        unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
+        //auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine, spriteAllocator);
+        // unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
 
         auto gameScene = std::make_shared<GameScene>(sceneStateMachine, spriteAllocator);
         unsigned int gameID = sceneStateMachine.Add(gameScene);
 
-        titleScreen->SceneAfterStart(gameID);
+        // titleScreen->SceneAfterStart(gameID);
 
         sceneStateMachine.SwitchTo(gameID);
 

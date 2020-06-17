@@ -5,7 +5,7 @@
 namespace squid
 {
     C_Transform::C_Transform(Object *owner)
-        : Component(owner), position_{0.f, 0.f}
+        : Component(owner), position_{0.f, 0.f}, isStaticTransform(false)
     {
     }
 
@@ -64,5 +64,15 @@ namespace squid
     void C_Transform::Draw(Window &window)
     {
         //std::cout << "Position : " << position_.u << '|' << position_.v << std::endl;
+    }
+
+    void C_Transform::SetStatic(bool isStatic)
+    {
+        isStaticTransform = isStatic;
+    }
+
+    bool C_Transform::isStatic() const
+    {
+        return isStaticTransform;
     }
 } // namespace squid

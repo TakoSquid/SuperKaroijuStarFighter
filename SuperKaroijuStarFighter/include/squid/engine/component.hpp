@@ -11,6 +11,8 @@
 #define C_GOTOWARDS 7
 #define C_ANIMATION 8
 #define C_BLINKING 9
+#define C_INSTANCEID 10
+#define C_BOXCOLLIDER 11
 
 namespace squid
 {
@@ -30,8 +32,6 @@ namespace squid
         virtual void Draw(Window &window);
 
         virtual int classType() = 0;
-
-    protected:
         Object *owner_;
     };
 } // namespace squid

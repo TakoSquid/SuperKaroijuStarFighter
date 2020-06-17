@@ -8,6 +8,7 @@ namespace squid
           sortOrder(0)
     {
         transform = AddComponent<C_Transform>();
+        instanceID = AddComponent<C_InstanceID>();
     }
 
     void Object::Awake()
@@ -68,5 +69,15 @@ namespace squid
     int Object::GetSortOrder() const
     {
         return sortOrder;
+    }
+
+    void Object::SetDrawLayer(DrawLayer drawLayer)
+    {
+        layer = drawLayer;
+    }
+
+    DrawLayer Object::GetDrawLayer() const
+    {
+        return layer;
     }
 } // namespace squid
