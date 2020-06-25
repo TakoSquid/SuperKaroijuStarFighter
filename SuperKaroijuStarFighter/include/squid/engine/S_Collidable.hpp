@@ -19,8 +19,6 @@ namespace squid
         void ProcessRemovals();
         void Update();
 
-        static int nbAddCalled;
-
     private:
         void Resolve();
         void ProcessCollisions(std::vector<std::shared_ptr<Object>> &first, std::vector<std::shared_ptr<Object>> &second);

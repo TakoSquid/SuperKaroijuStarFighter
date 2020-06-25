@@ -10,6 +10,7 @@
 
 namespace squid
 {
+
     class Object
     {
     public:
@@ -20,6 +21,7 @@ namespace squid
 
         void Update(float deltaTime);
         void LateUpdate(float deltaTime);
+
         void Draw(Window &window);
 
         bool IsQueuedForRemoval();
@@ -64,9 +66,6 @@ namespace squid
         void SetSortOrder(int order);
         int GetSortOrder() const;
 
-        void SetDrawLayer(DrawLayer drawLayer);
-        DrawLayer GetDrawLayer() const;
-
         std::shared_ptr<C_Transform> transform;
         std::shared_ptr<C_InstanceID> instanceID;
 
@@ -75,6 +74,5 @@ namespace squid
         bool queuedForRemoval;
 
         int sortOrder;
-        DrawLayer layer;
     };
 } // namespace squid

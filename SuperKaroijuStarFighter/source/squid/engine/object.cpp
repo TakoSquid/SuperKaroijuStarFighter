@@ -70,14 +70,4 @@ namespace squid
     {
         return sortOrder;
     }
-
-    void Object::SetDrawLayer(DrawLayer drawLayer)
-    {
-        layer = drawLayer;
-    }
-
-    DrawLayer Object::GetDrawLayer() const
-    {
-        return layer;
-    }
 } // namespace squid

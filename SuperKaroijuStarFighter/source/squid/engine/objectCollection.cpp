@@ -19,10 +19,10 @@ namespace squid
 
     void ObjectCollection::Draw(Window &window)
     {
+        Sort();
+
         for (auto &o : objects)
             o->Draw(window);
-
-        std::cout << "Nb Collidables : " << S_Collidable::nbAddCalled << std::endl;
     }
 
     void ObjectCollection::Add(std::shared_ptr<Object> object)
@@ -45,12 +45,9 @@ namespace squid
             }
 
             objects.insert(objects.end(), newObjects.begin(), newObjects.end());
-
             collidables.Add(newObjects);
 
             newObjects.clear();
-
-            Sort();
         }
     }
 
@@ -85,12 +82,17 @@ namespace squid
         return objects.size();
     }
 
+    bool ObjectCollection::LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b)
+    {
+        return a->GetSortOrder() < b->GetSortOrder();
+    }
+
     void ObjectCollection::Sort()
     {
-        std::sort(
-            objects.begin(), objects.end(),
-            [](std::shared_ptr<Object> a, std::shared_ptr<Object> b) -> bool {
-                return a->GetSortOrder() < b->GetSortOrder();
-            });
+
+        if (!std::is_sorted(objects.begin(), objects.end(), LayerSort))
+        {
+            std::sort(objects.begin(), objects.end(), LayerSort);
+        }
     }
 } // namespace squid

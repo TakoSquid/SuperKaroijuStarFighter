@@ -2,7 +2,6 @@
 
 namespace squid
 {
-    int S_Collidable::nbAddCalled = 0;
 
     S_Collidable::S_Collidable()
     {
@@ -69,8 +68,6 @@ namespace squid
     void S_Collidable::Update()
     {
 
-        collisionTree.DrawDebug();
-
         collisionTree.Clear();
 
         for (auto maps = collidables.begin(); maps != collidables.end(); ++maps)
@@ -86,8 +83,6 @@ namespace squid
 
     void S_Collidable::Resolve()
     {
-
-        nbAddCalled = 0;
 
         for (auto maps = collidables.begin(); maps != collidables.end(); ++maps)
         {
@@ -114,17 +109,11 @@ namespace squid
                         continue;
                     }
 
-                    collisionLayers[collidable->GetLayer()].GetBit(((int)collision->GetLayer()));
-
-                    // TODO
-                    bool layersCollide = true;
-                    // TMP
+                    bool layersCollide = collisionLayers[collidable->GetLayer()].GetBit(((int)collision->GetLayer()));
 
                     if (layersCollide)
                     {
                         Manifold m = collidable->Intersects(collision);
-
-                        nbAddCalled += 1;
 
                         if (m.colliding)
                         {

@@ -198,8 +198,6 @@ namespace squid
                 children[i]->DrawDebug();
             }
         }
-
-        // Debug::DrawRect(bounds);
     }
 
 } // namespace squid

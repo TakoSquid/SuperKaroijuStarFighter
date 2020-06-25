@@ -16,6 +16,7 @@ namespace squid
 
         void Update(float deltaTime);
         void LateUpdate(float deltaTime);
+
         void Draw(Window &window);
 
         void ProcessNewObjects();
@@ -28,5 +29,7 @@ namespace squid
         std::vector<std::shared_ptr<Object>> objects;
         std::vector<std::shared_ptr<Object>> newObjects;
         S_Collidable collidables;
+
+        static bool LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b);
     };
 } // namespace squid

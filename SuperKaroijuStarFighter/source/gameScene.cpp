@@ -8,6 +8,9 @@
 
 #include "tinyxml2.h"
 
+// 192.168.137.157 23/06/2020
+// 192.168.137.146
+
 namespace squid
 {
     GameScene::GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor)
@@ -30,7 +33,7 @@ namespace squid
         // Player
         auto player = std::make_shared<Object>();
         player->transform->SetPosition(30, 100);
-        player->SetSortOrder(1);
+        player->SetSortOrder(1000);
 
         auto sprite = player->AddComponent<C_Sprite>();
         sprite->setAllocator(&m_spriteAllocator);
@@ -60,7 +63,7 @@ namespace squid
 
         auto collider = player->AddComponent<C_BoxCollider>();
         collider->SetCollidable(m3d::BoundingBox(0, 0, 20, 20));
-        collider->SetLayer(CollisionLayer::Default);
+        collider->SetLayer(CollisionLayer::Player);
 
         // Background
         auto bgObj = std::make_shared<Object>();
@@ -75,6 +78,7 @@ namespace squid
         // Platforme
         auto platform = std::make_shared<Object>();
         platform->transform->SetPosition(128, 200);
+        platform->SetSortOrder(500);
 
         auto platcollider = platform->AddComponent<C_BoxCollider>();
         platcollider->SetCollidable(m3d::BoundingBox(0, 0, 16, 16));
@@ -83,6 +87,10 @@ namespace squid
         platformGoTowards = platform->AddComponent<C_GoTowards>();
         platformGoTowards->setGoal(m3d::Vector2f{platform->transform->GetPosition().u, 72});
         platformGoTowards->setSpeed(100.0f);
+
+        auto platformSprite = platform->AddComponent<C_Sprite>();
+        platformSprite->setAllocator(&m_spriteAllocator);
+        platformSprite->Load(12);
 
         m_Objects.Add(platform);
         m_Objects.Add(player);
@@ -110,6 +118,10 @@ namespace squid
                 platformGoTowards->setGoal(m3d::Vector2f{platformGoTowards->owner_->transform->GetPosition().u, 72});
         }
 
+        if (m3d::buttons::buttonPressed(m3d::buttons::Y))
+        {
+        }
+
         m_Objects.ProcessRemovals();
         m_Objects.ProcessNewObjects();
 
@@ -125,7 +137,5 @@ namespace squid
         std::cout << "Il y a : " << m_Objects.getNumberObjects() << " objets dans la scene." << std::endl;
 
         m_Objects.Draw(window);
-
-        // Debug::Draw(window);
     }
 } // namespace squid
