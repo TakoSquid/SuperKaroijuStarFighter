@@ -10,8 +10,7 @@ namespace squid
 {
     C_Sprite::C_Sprite(Object *owner)
         : Component(owner),
-          m_flipX{false},
-          m_flipY{false}
+          currentScale{1.0f, 1.0f}
     {
     }
 
@@ -24,24 +23,38 @@ namespace squid
     {
         if (m_SpriteAllocator)
             spr_ = m_SpriteAllocator->getSprite(id);
-
-        flipX(m_flipX);
-        flipY(m_flipY);
     }
 
     void C_Sprite::Start()
     {
         spr_.setPosition(owner_->transform->GetPosition());
+        spr_.setRotation(owner_->transform->GetAngle());
     }
 
     void C_Sprite::LateUpdate(float deltaTime)
     {
         spr_.setPosition(owner_->transform->GetPosition());
+        spr_.setRotation(owner_->transform->GetAngle());
+        spr_.setScale(currentScale);
     }
 
     void C_Sprite::Draw(Window &window)
     {
-        window.Draw(spr_);
+        if (auto c = owner_->cam)
+        {
+            spr_.setPosition(c->worldToCamera(spr_.getPosition()));
+            spr_.setRotation(spr_.getRotation() + c->getAngle() / M_PI * 180.0f);
+
+            spr_.setXScale(spr_.getXScale());
+            spr_.setYScale(spr_.getYScale());
+
+            auto tmp = c->getScale();
+
+            spr_.setXScale(currentScale.u * tmp.u);
+            spr_.setYScale(currentScale.v * tmp.v);
+                }
+
+        window.Draw(spr_, m3d::RenderContext::Mode::Flat, owner_->GetSortOrder());
     }
 
     void C_Sprite::setOpacity(float opacity)
@@ -72,26 +85,19 @@ namespace squid
 
     void C_Sprite::flipX(bool flipX)
     {
-        m_flipX = flipX;
-
-        if (m_flipX)
-            spr_.setXScale(-1.0f);
-        else
-            spr_.setXScale(1.0f);
+        if (flipX)
+            currentScale.u = -1.0f;
     }
     void C_Sprite::flipY(bool flipY)
     {
-        m_flipY = flipY;
 
-        if (m_flipY)
-            spr_.setYScale(-1.0f);
-        else
-            spr_.setYScale(1.0f);
+        // if (flipY)
+        //     currentScale.v *= -1.0f;
     }
 
     void C_Sprite::setScale(m3d::Vector2f scale)
     {
-        spr_.setScale(scale.u, scale.v);
+        currentScale = scale;
     }
 
 } // namespace squid

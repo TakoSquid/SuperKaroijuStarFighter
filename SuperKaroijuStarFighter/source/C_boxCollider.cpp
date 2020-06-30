@@ -110,12 +110,12 @@ namespace squid
 
     void C_BoxCollider::Draw(Window &window)
     {
-        rect.setXPosition(AABB.getX());
-        rect.setYPosition(AABB.getY());
-        rect.setWidth(AABB.getWidth());
-        rect.setHeight(AABB.getHeight());
-        rect.setColor(m3d::Color(255, 255, 255, 50));
-        window.Draw(rect);
+        // rect.setXPosition(AABB.getX());
+        // rect.setYPosition(AABB.getY());
+        // rect.setWidth(AABB.getWidth());
+        // rect.setHeight(AABB.getHeight());
+        // rect.setColor(m3d::Color(255, 255, 255, 50));
+        // window.Draw(rect);
     }
 
 } // namespace squid

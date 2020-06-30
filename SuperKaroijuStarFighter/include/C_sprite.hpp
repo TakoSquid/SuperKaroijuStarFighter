@@ -30,7 +30,6 @@ namespace squid
     private:
         SpriteAllocator *m_SpriteAllocator;
         m3d::Sprite spr_;
-        bool m_flipX;
-        bool m_flipY;
+        m3d::Vector2f currentScale;
     };
 } // namespace squid

@@ -15,15 +15,16 @@ namespace squid
 {
     GameScene::GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor)
         : m_sceneStateMachine{sceneStateMachine},
-          m_spriteAllocator{spriteAllocactor}, test("romfs:/gfx/forest.t3x"),
+          m_spriteAllocator{spriteAllocactor}, test("romfs:/gfx/jungle.t3x"),
           mapParser(test)
     {
+        cam = m_Objects.getCamera();
     }
 
     void GameScene::OnCreate()
     {
 
-        std::vector<std::shared_ptr<Object>> levelTiles = mapParser.Parse("romfs:/forest_map.xml", m3d::Vector2f{8.0f, 8.0f});
+        std::vector<std::shared_ptr<Object>> levelTiles = mapParser.Parse("romfs:/map.xml", m3d::Vector2f{16.0f, 16.0f});
 
         for (auto &obj : levelTiles)
         {
@@ -31,7 +32,7 @@ namespace squid
         }
 
         // Player
-        auto player = std::make_shared<Object>();
+        player = std::make_shared<Object>();
         player->transform->SetPosition(30, 100);
         player->SetSortOrder(1000);
 
@@ -67,13 +68,12 @@ namespace squid
 
         // Background
         auto bgObj = std::make_shared<Object>();
+        bgObj->SetSortOrder(-100);
         bgObj->transform->SetPosition(200, 120);
 
-        auto scrollCompo = bgObj->AddComponent<C_ScrollingBackground>();
-        bgObj->SetSortOrder(-100);
-        scrollCompo->setAllocator(&m_spriteAllocator);
-        scrollCompo->SetSpeed(0.0f);
-        scrollCompo->SetSpriteId(11);
+        auto bgSpr = bgObj->AddComponent<C_Sprite>();
+        bgSpr->setAllocator(&m_spriteAllocator);
+        bgSpr->Load(11);
 
         // Platforme
         auto platform = std::make_shared<Object>();
@@ -106,6 +106,7 @@ namespace squid
 
     void GameScene::Update(float deltaTime)
     {
+
         if (platformGoTowards->done())
         {
 
@@ -118,8 +119,61 @@ namespace squid
                 platformGoTowards->setGoal(m3d::Vector2f{platformGoTowards->owner_->transform->GetPosition().u, 72});
         }
 
-        if (m3d::buttons::buttonPressed(m3d::buttons::Y))
+        const float smol = 0.01f;
+
+        if (cam)
         {
+
+            float X = cos(cam->getAngle());
+            float Y = sin(cam->getAngle());
+
+            std::cout << cam->getAngle() << std::endl;
+
+            if (m3d::buttons::buttonDown(m3d::buttons::X))
+            {
+                cam->scaling(smol * 3);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::Y))
+            {
+                cam->scaling(-smol * 3);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::A))
+            {
+                cam->rotate(smol * 10);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::B))
+            {
+                cam->rotate(-smol * 10);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::DPadRight))
+            {
+                cam->translate(-X, Y);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::DPadLeft))
+            {
+                cam->translate(X, -Y);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::DPadUp))
+            {
+                cam->translate(Y, X);
+            }
+
+            if (m3d::buttons::buttonDown(m3d::buttons::DPadDown))
+            {
+                cam->translate(-Y, -X);
+            }
+
+            auto pos = player->transform->GetPosition();
+            X = pos.u;
+            Y = pos.v;
+
+            cam->setPosition(-X, -Y);
         }
 
         m_Objects.ProcessRemovals();

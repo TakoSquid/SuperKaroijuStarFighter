@@ -45,10 +45,12 @@ namespace squid
 
     void Object::Draw(Window &window)
     {
+        transform->AddX(20.0f);
         for (int i = components_.size() - 1; i >= 0; i--)
         {
             components_[i]->Draw(window);
         }
+        transform->AddX(-20.0f);
     }
 
     void Object::QueueForRemoval()

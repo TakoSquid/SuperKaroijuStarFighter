@@ -22,6 +22,10 @@ namespace squid
         void AddX(float x);
         void AddY(float y);
 
+        void SetAngle(float a);
+        void Rotate(float a);
+        float GetAngle() const;
+
         void Draw(Window &window) override;
 
         const m3d::Vector2f &GetPosition() const;
@@ -31,6 +35,8 @@ namespace squid
 
     private:
         m3d::Vector2f position_;
+        float angle_;
+
         bool isStaticTransform;
     };
 } // namespace squid

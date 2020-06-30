@@ -5,7 +5,7 @@
 namespace squid
 {
     C_Transform::C_Transform(Object *owner)
-        : Component(owner), position_{0.f, 0.f}, isStaticTransform(false)
+        : Component(owner), position_{0.f, 0.f}, angle_(0), isStaticTransform(false)
     {
     }
 
@@ -74,5 +74,19 @@ namespace squid
     bool C_Transform::isStatic() const
     {
         return isStaticTransform;
+    }
+
+    void C_Transform::SetAngle(float a)
+    {
+        angle_ = a;
+    }
+
+    void C_Transform::Rotate(float a)
+    {
+        SetAngle(angle_ + a);
+    }
+    float C_Transform::GetAngle() const
+    {
+        return angle_;
     }
 } // namespace squid

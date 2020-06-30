@@ -8,6 +8,7 @@
 #include "squid/engine/objectCollection.hpp"
 #include "squid/engine/object.hpp"
 #include "squid/engine/tileMapParser.hpp"
+#include "squid/engine/camera.hpp"
 
 #include "C_goTowards.hpp"
 
@@ -47,5 +48,9 @@ namespace squid
         TileMapParser mapParser;
 
         std::shared_ptr<C_GoTowards> platformGoTowards;
+
+        squid::Camera *cam;
+
+        std::shared_ptr<squid::Object> player;
     };
 } // namespace squid

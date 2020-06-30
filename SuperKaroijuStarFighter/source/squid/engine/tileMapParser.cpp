@@ -26,11 +26,10 @@ namespace squid
 
         std::vector<std::shared_ptr<Object>> tileObjects;
 
-        int lay = tiles->size() - 1;
+        int lay = tiles->size();
 
         for (const auto &layer : *tiles)
         {
-            lay--;
             for (const auto &tile : layer.second->tiles)
             {
                 std::shared_ptr<TileInfo> tileInfo = tile->properties;
@@ -64,6 +63,8 @@ namespace squid
 
                 tileObjects.emplace_back(tileObject);
             }
+
+            lay -= 1;
         }
 
         return tileObjects;

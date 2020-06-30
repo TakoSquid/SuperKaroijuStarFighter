@@ -39,12 +39,13 @@ namespace squid
 
     void Game::Draw()
     {
+        std::cout << 1.0 / deltaTime << std::endl;
+
         win.BeginDraw();
 
         sceneStateMachine.Draw(win);
         std::cout << "current scene : " << sceneStateMachine.getCurrentSceneId() << std::endl;
         std::cout << "sprite allocator loaded : " << spriteAllocator.nLoadedSprites() << std::endl;
-
         win.EndDraw();
     }
 

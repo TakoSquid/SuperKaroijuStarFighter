@@ -6,7 +6,9 @@ namespace squid
     void ObjectCollection::Update(float deltaTime)
     {
         for (auto &o : objects)
+        {
             o->Update(deltaTime);
+        }
 
         collidables.Update();
     }
@@ -14,15 +16,19 @@ namespace squid
     void ObjectCollection::LateUpdate(float deltaTime)
     {
         for (auto &o : objects)
+        {
             o->LateUpdate(deltaTime);
+        }
     }
 
     void ObjectCollection::Draw(Window &window)
     {
-        Sort();
+        // Sort();
 
         for (auto &o : objects)
+        {
             o->Draw(window);
+        }
     }
 
     void ObjectCollection::Add(std::shared_ptr<Object> object)
@@ -36,6 +42,7 @@ namespace squid
         {
             for (const auto &o : newObjects)
             {
+                o->cam = &cam;
                 o->Awake();
             }
 
@@ -82,17 +89,21 @@ namespace squid
         return objects.size();
     }
 
-    bool ObjectCollection::LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b)
+    squid::Camera *ObjectCollection::getCamera()
     {
-        return a->GetSortOrder() < b->GetSortOrder();
+        return &cam;
     }
+    // bool ObjectCollection::LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b)
+    // {
+    //     return a->GetSortOrder() < b->GetSortOrder();
+    // }
 
-    void ObjectCollection::Sort()
-    {
+    // void ObjectCollection::Sort()
+    // {
 
-        if (!std::is_sorted(objects.begin(), objects.end(), LayerSort))
-        {
-            std::sort(objects.begin(), objects.end(), LayerSort);
-        }
-    }
+    //     if (!std::is_sorted(objects.begin(), objects.end(), LayerSort))
+    //     {
+    //         std::sort(objects.begin(), objects.end(), LayerSort);
+    //     }
+    // }
 } // namespace squid

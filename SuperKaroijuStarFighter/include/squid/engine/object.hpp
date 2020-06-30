@@ -7,6 +7,7 @@
 #include "squid/engine/component.hpp"
 #include "C_transform.hpp"
 #include "C_instanceId.hpp"
+#include "camera.hpp"
 
 namespace squid
 {
@@ -68,6 +69,7 @@ namespace squid
 
         std::shared_ptr<C_Transform> transform;
         std::shared_ptr<C_InstanceID> instanceID;
+        Camera *cam;
 
     private:
         std::vector<std::shared_ptr<Component>> components_;

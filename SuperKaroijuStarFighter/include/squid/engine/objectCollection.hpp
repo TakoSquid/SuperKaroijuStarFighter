@@ -6,6 +6,7 @@
 
 #include "squid/engine/object.hpp"
 #include "squid/engine/S_Collidable.hpp"
+#include "squid/engine/camera.hpp"
 
 namespace squid
 {
@@ -24,12 +25,15 @@ namespace squid
 
         unsigned int getNumberObjects();
 
+        squid::Camera *getCamera();
+
     private:
-        void Sort();
+        //void Sort();
         std::vector<std::shared_ptr<Object>> objects;
         std::vector<std::shared_ptr<Object>> newObjects;
         S_Collidable collidables;
+        squid::Camera cam;
 
-        static bool LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b);
+        // static bool LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b);
     };
 } // namespace squid

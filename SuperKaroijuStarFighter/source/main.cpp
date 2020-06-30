@@ -14,7 +14,6 @@ int main()
 
         game.Update();
         game.LateUpdate();
-        squid::printAt(1, 1, "---DEBUG---");
         game.Draw();
         game.CalculateDeltaTime();
     }
