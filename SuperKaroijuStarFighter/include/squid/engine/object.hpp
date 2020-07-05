@@ -8,6 +8,7 @@
 #include "C_transform.hpp"
 #include "C_instanceId.hpp"
 #include "camera.hpp"
+#include "squid/engine/sharedContext.hpp"
 
 namespace squid
 {
@@ -15,7 +16,8 @@ namespace squid
     class Object
     {
     public:
-        Object();
+        Object(SharedContext *c);
+        SharedContext *context;
 
         void Awake();
         void Start();

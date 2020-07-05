@@ -4,7 +4,9 @@
 namespace squid
 {
     C_Animation::C_Animation(Object *owner)
-        : Component(owner), currentAnimation(AnimationState::None, nullptr)
+        : Component(owner),
+          currentAnimation(AnimationState::None, nullptr),
+          currentDirection(FacingDirection::None)
     {
     }
 
@@ -15,11 +17,14 @@ namespace squid
 
     void C_Animation::Awake()
     {
-        // sprite = owner_->GetComponent<C_Sprite>();
+        sprite = owner_->GetComponent<C_Sprite>();
+        direction = owner_->GetComponent<C_Direction>();
     }
 
     void C_Animation::Update(float deltaTime)
     {
+        SetAnimationDirection(direction->Get());
+
         if (currentAnimation.first != AnimationState::None && sprite)
         {
             bool newFrame = currentAnimation.second->UpdateFrame(deltaTime);
@@ -27,22 +32,24 @@ namespace squid
             if (newFrame)
             {
                 const FrameData *data = currentAnimation.second->GetCurrentFrame();
-
                 sprite->Load(data->id);
             }
         }
     }
 
-    void C_Animation::AddAnimation(AnimationState state, std::shared_ptr<Animation> animation)
+    void C_Animation::AddAnimation(AnimationState state, AnimationList &animationList)
     {
-        auto inserted = animations.insert(std::make_pair(state, animation));
+        animations.insert(std::make_pair(state, animationList));
 
         if (currentAnimation.first == AnimationState::None)
             SetAnimationState(state);
 
-        for (const auto &id : animation->getFramesSpriteIds())
+        for (auto const &anim : animationList)
         {
-            sprite->getAllocator()->getSprite(id);
+            for (auto const &id : anim.second->getFramesSpriteIds())
+            {
+                owner_->context->spriteAllocator->getSprite(id);
+            }
         }
     }
 
@@ -53,15 +60,18 @@ namespace squid
             return;
         }
 
-        auto animation = animations.find(state);
-        if (animation != animations.end() && sprite)
+        auto animationList = animations.find(state);
+        if (animationList != animations.end() && sprite)
         {
-            currentAnimation.first = animation->first;
-            currentAnimation.second = animation->second;
 
-            currentAnimation.second->Reset();
+            auto animation = animationList->second.find(currentDirection);
 
-            sprite->Load(currentAnimation.second->GetCurrentFrame()->id);
+            if (animation != animationList->second.end())
+            {
+                currentAnimation.first = animationList->first;
+                currentAnimation.second = animation->second;
+                currentAnimation.second->Reset();
+            }
         }
     }
 
@@ -73,6 +83,41 @@ namespace squid
     void C_Animation::setSprite(std::shared_ptr<squid::C_Sprite> spr)
     {
         sprite = spr;
+    }
+
+    void C_Animation::SetAnimationDirection(FacingDirection dir)
+    {
+        if (dir != currentDirection)
+        {
+            currentDirection = dir;
+
+            auto animationList = animations.find(currentAnimation.first);
+            if (animationList != animations.end())
+            {
+                auto animation = animationList->second.find(currentDirection);
+                if (animation != animationList->second.end())
+                {
+                    currentAnimation.second = animation->second;
+                    currentAnimation.second->Reset();
+                }
+            }
+        }
+    }
+
+    void C_Animation::AddAnimationAction(AnimationState state, FacingDirection dir, int frame, AnimationAction action)
+    {
+        auto animationList = animations.find(state);
+
+        if (animationList != animations.end())
+        {
+            auto animation = animationList->second.find(dir);
+            {
+                if (animation != animationList->second.end())
+                {
+                    animation->second->AddFrameAction(frame, action);
+                }
+            }
+        }
     }
 
 } // namespace squid

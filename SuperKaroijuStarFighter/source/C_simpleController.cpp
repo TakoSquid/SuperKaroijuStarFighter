@@ -7,7 +7,7 @@
 namespace squid
 {
     C_SimpleController::C_SimpleController(Object *owner)
-        : Component(owner), moveSpeed(100)
+        : Component(owner), moveSpeed(100.0f)
     {
     }
 
@@ -23,7 +23,7 @@ namespace squid
 
     void C_SimpleController::Awake()
     {
-        // animation = owner_->GetComponent<C_Animation>();
+        velocity = owner_->GetComponent<C_Velocity>();
     }
 
     void C_SimpleController::Update(float deltaTime)
@@ -41,37 +41,7 @@ namespace squid
         int yMove = 0;
         yMove = -input.v * moveSpeed;
 
-        float xFrameMove = xMove * deltaTime;
-        float yFrameMove = yMove * deltaTime;
-
-        owner_->transform->AddPosition(xFrameMove, yFrameMove);
-
-        if (animation)
-        {
-            if (xFrameMove != 0 || yFrameMove != 0)
-            {
-                animation->SetAnimationState(squid::AnimationState::SlowFly);
-            }
-            else
-            {
-                animation->SetAnimationState(squid::AnimationState::Idle);
-            }
-        }
-
-        if (m3d::buttons::buttonPressed(m3d::buttons::DPadUp))
-        {
-            owner_->SetSortOrder(owner_->GetSortOrder() + 1);
-        }
-
-        if (m3d::buttons::buttonPressed(m3d::buttons::DPadDown))
-        {
-            owner_->SetSortOrder(owner_->GetSortOrder() - 1);
-        }
-    }
-
-    void C_SimpleController::setAnimation(std::shared_ptr<C_Animation> anim)
-    {
-        animation = anim;
+        velocity->Set(xMove, yMove);
     }
 
 } // namespace squid

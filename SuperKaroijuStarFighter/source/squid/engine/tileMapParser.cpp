@@ -2,8 +2,8 @@
 
 namespace squid
 {
-    TileMapParser::TileMapParser(SpriteAllocator &spriteAllocator)
-        : m_spriteAllocator(spriteAllocator)
+    TileMapParser::TileMapParser(SharedContext &context)
+        : m_sharedContext(context)
     {
     }
 
@@ -26,19 +26,18 @@ namespace squid
 
         std::vector<std::shared_ptr<Object>> tileObjects;
 
-        int lay = tiles->size();
+        int lay = 0;
 
         for (const auto &layer : *tiles)
         {
             for (const auto &tile : layer.second->tiles)
             {
                 std::shared_ptr<TileInfo> tileInfo = tile->properties;
-                std::shared_ptr<Object> tileObject = std::make_shared<Object>();
+                std::shared_ptr<Object> tileObject = std::make_shared<Object>(&m_sharedContext);
 
                 const float tileScale = 1.0f;
 
                 auto sprite = tileObject->AddComponent<C_Sprite>();
-                sprite->setAllocator(&m_spriteAllocator);
                 sprite->Load(tile->properties->tileID - 1);
                 sprite->setScale(m3d::Vector2f{tileScale, tileScale});
                 sprite->setOpacity(layer.second->opacity);
@@ -64,7 +63,7 @@ namespace squid
                 tileObjects.emplace_back(tileObject);
             }
 
-            lay -= 1;
+            lay += 1;
         }
 
         return tileObjects;
@@ -79,7 +78,7 @@ namespace squid
         {
             std::pair<std::string, std::shared_ptr<Layer>> mapLayer = BuildLayer(e, tileSheetData);
 
-            map->emplace(mapLayer);
+            map->emplace_back(mapLayer);
         }
 
         return map;

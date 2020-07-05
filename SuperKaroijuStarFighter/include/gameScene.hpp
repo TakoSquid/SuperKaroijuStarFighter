@@ -9,10 +9,7 @@
 #include "squid/engine/object.hpp"
 #include "squid/engine/tileMapParser.hpp"
 #include "squid/engine/camera.hpp"
-
-#include "C_goTowards.hpp"
-
-// #include "squid/engine/debug.hpp"
+#include "squid/engine/sharedContext.hpp"
 
 ///////////////////////////////////
 #include <iostream>
@@ -25,7 +22,7 @@ namespace squid
     class GameScene : public Scene
     {
     public:
-        GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor);
+        GameScene(SceneStateMachine &sceneStateMachine, SpriteAllocator &spriteAllocactor, Window &window);
 
         void OnCreate() override;
         void OnDestroy() override;
@@ -40,17 +37,14 @@ namespace squid
     private:
         SceneStateMachine &m_sceneStateMachine;
         SpriteAllocator &m_spriteAllocator;
-
         ObjectCollection m_Objects;
-
         std::vector<std::vector<int>> clean;
         SpriteAllocator test;
-        TileMapParser mapParser;
-
-        std::shared_ptr<C_GoTowards> platformGoTowards;
-
         squid::Camera *cam;
-
         std::shared_ptr<squid::Object> player;
+        Window &window;
+        SharedContext context;
+        SharedContext tilesContext;
+        TileMapParser mapParser;
     };
 } // namespace squid

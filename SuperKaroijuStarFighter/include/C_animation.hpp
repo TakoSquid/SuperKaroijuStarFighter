@@ -5,6 +5,7 @@
 #include "squid/engine/component.hpp"
 #include "squid/engine/animation.hpp"
 #include "C_sprite.hpp"
+#include "C_direction.hpp"
 
 namespace squid
 {
@@ -14,8 +15,11 @@ namespace squid
         None,
         Idle,
         Walk,
-        SlowFly
+        SlowFly,
+        Casting
     };
+
+    using AnimationList = std::map<FacingDirection, std::shared_ptr<Animation>>;
 
     class C_Animation : public Component
     {
@@ -27,19 +31,22 @@ namespace squid
         void Awake() override;
         void Update(float deltaTime) override;
 
-        void AddAnimation(AnimationState state, std::shared_ptr<Animation> animation);
+        void AddAnimation(AnimationState state, AnimationList &animationList);
 
         void SetAnimationState(AnimationState state);
-
         const AnimationState &GetAnimationState() const;
 
         void setSprite(std::shared_ptr<squid::C_Sprite> spr);
+        void SetAnimationDirection(FacingDirection dir);
+
+        void AddAnimationAction(AnimationState, FacingDirection dir, int frame, AnimationAction action);
 
     private:
         std::shared_ptr<C_Sprite> sprite;
-        std::map<AnimationState, std::shared_ptr<Animation>> animations;
-
+        std::unordered_map<AnimationState, AnimationList> animations;
         std::pair<AnimationState, std::shared_ptr<Animation>> currentAnimation;
+        std::shared_ptr<C_Direction> direction;
+        FacingDirection currentDirection;
     };
 
 } // namespace squid

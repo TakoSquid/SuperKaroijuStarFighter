@@ -13,6 +13,10 @@
 #define C_BLINKING 9
 #define C_INSTANCEID 10
 #define C_BOXCOLLIDER 11
+#define C_PROJECTILEATTACK 12
+#define C_VELOCITY 13
+#define C_MOVEMENTANIMATION 14
+#define C_DIRECTION 15
 
 namespace squid
 {

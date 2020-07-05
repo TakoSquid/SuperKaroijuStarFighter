@@ -21,8 +21,8 @@ namespace squid
 
     void C_Sprite::Load(int id)
     {
-        if (m_SpriteAllocator)
-            spr_ = m_SpriteAllocator->getSprite(id);
+        if (owner_->context->spriteAllocator && id >= 0)
+            spr_ = owner_->context->spriteAllocator->getSprite(id);
     }
 
     void C_Sprite::Start()
@@ -52,7 +52,7 @@ namespace squid
 
             spr_.setXScale(currentScale.u * tmp.u);
             spr_.setYScale(currentScale.v * tmp.v);
-                }
+        }
 
         window.Draw(spr_, m3d::RenderContext::Mode::Flat, owner_->GetSortOrder());
     }
@@ -68,15 +68,15 @@ namespace squid
         spr_.setBlend(tint.getAlpha() / 255.0f);
     }
 
-    void C_Sprite::setAllocator(SpriteAllocator *spriteAllocator)
-    {
-        m_SpriteAllocator = spriteAllocator;
-    }
+    // void C_Sprite::setAllocator(SpriteAllocator *spriteAllocator)
+    // {
+    //     // m_SpriteAllocator = spriteAllocator;
+    // }
 
-    SpriteAllocator *C_Sprite::getAllocator()
-    {
-        return m_SpriteAllocator;
-    }
+    // SpriteAllocator *C_Sprite::getAllocator()
+    // {
+    //     // return m_SpriteAllocator;
+    // }
 
     m3d::Vector2f C_Sprite::getSize()
     {
@@ -91,8 +91,8 @@ namespace squid
     void C_Sprite::flipY(bool flipY)
     {
 
-        // if (flipY)
-        //     currentScale.v *= -1.0f;
+        if (flipY)
+            currentScale.v *= -1.0f;
     }
 
     void C_Sprite::setScale(m3d::Vector2f scale)

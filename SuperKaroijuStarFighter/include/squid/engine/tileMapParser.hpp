@@ -11,6 +11,7 @@
 #include "squid/engine/tile.hpp"
 #include "squid/engine/spriteAllocator.hpp"
 #include "squid/engine/object.hpp"
+#include "squid/engine/sharedContext.hpp"
 
 #include "C_sprite.hpp"
 #include "C_boxCollider.hpp"
@@ -26,7 +27,7 @@ namespace squid
         float opacity;
     };
 
-    using MapTiles = std::map<std::string, std::shared_ptr<Layer>>;
+    using MapTiles = std::vector<std::pair<std::string, std::shared_ptr<Layer>>>;
     using TileSet = std::unordered_map<unsigned int, std::shared_ptr<TileInfo>>;
 
     struct TileSheetData
@@ -38,7 +39,7 @@ namespace squid
     class TileMapParser
     {
     public:
-        TileMapParser(SpriteAllocator &spriteAllocator);
+        TileMapParser(SharedContext &context);
 
         std::vector<std::shared_ptr<Object>> Parse(const std::string &file, m3d::Vector2f offset);
 
@@ -46,7 +47,6 @@ namespace squid
         std::shared_ptr<TileSheetData> BuildTileSheetData(tinyxml2::XMLElement *rootNode);
         std::shared_ptr<MapTiles> BuildMapTiles(tinyxml2::XMLElement *rootNode);
         std::pair<std::string, std::shared_ptr<Layer>> BuildLayer(tinyxml2::XMLElement *layerNode, std::shared_ptr<TileSheetData> tileSheetData);
-
-        SpriteAllocator &m_spriteAllocator;
+        SharedContext &m_sharedContext;
     };
 } // namespace squid

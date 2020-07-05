@@ -12,7 +12,8 @@ namespace squid
     {
         Default = 1,
         Player = 2,
-        Tile = 3
+        Tile = 3,
+        Projectile = 4
     };
 
     struct Manifold

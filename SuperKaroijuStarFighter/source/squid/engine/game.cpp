@@ -11,7 +11,7 @@ namespace squid
         //auto titleScreen = std::make_shared<TitleScreenScene>(sceneStateMachine, spriteAllocator);
         // unsigned int titleScreenID = sceneStateMachine.Add(titleScreen);
 
-        auto gameScene = std::make_shared<GameScene>(sceneStateMachine, spriteAllocator);
+        auto gameScene = std::make_shared<GameScene>(sceneStateMachine, spriteAllocator, win);
         unsigned int gameID = sceneStateMachine.Add(gameScene);
 
         // titleScreen->SceneAfterStart(gameID);

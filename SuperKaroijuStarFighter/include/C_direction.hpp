@@ -1,24 +1,26 @@
 #pragma once
 
-#include "squid/engine/component.hpp"
-#include "C_velocity.hpp"
 #include <memory>
+#include <m3dia.hpp>
+
+#include "squid/engine/component.hpp"
+#include "squid/engine/animation.hpp"
+#include "C_velocity.hpp"
 
 namespace squid
 {
-    class C_SimpleController : public Component
+    class C_Direction : public Component
     {
     public:
-        C_SimpleController(Object *owner);
         int classType() override;
 
-        void SetMovementSpeed(int moveSpeed);
+        C_Direction(Object *owner);
 
         void Awake() override;
-        void Update(float deltaTime) override;
+        FacingDirection Get();
 
     private:
-        int moveSpeed;
         std::shared_ptr<C_Velocity> velocity;
+        FacingDirection currentDir;
     };
 } // namespace squid

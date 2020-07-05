@@ -73,7 +73,6 @@ namespace squid
         float resolve = 0;
         float xDiff = (rect1.getX() + (rect1.getWidth() * 0.5f)) - (rect2->getX() + (rect2->getWidth() * 0.5f));
         float yDiff = (rect1.getY() + (rect1.getHeight() * 0.5f)) - (rect2->getY() + (rect2->getHeight() * 0.5f));
-
         if (fabs(xDiff) > fabs(yDiff))
         {
             if (xDiff > 0)
@@ -82,10 +81,9 @@ namespace squid
             }
             else
             {
-                {
-                    resolve = -((rect1.getX() + rect1.getWidth()) - rect2->getX());
-                }
+                resolve = -((rect1.getX() + rect1.getWidth()) - rect2->getX());
             }
+
             transform->AddPosition(resolve, 0);
         }
         else
@@ -114,7 +112,7 @@ namespace squid
         // rect.setYPosition(AABB.getY());
         // rect.setWidth(AABB.getWidth());
         // rect.setHeight(AABB.getHeight());
-        // rect.setColor(m3d::Color(255, 255, 255, 50));
+        // rect.setColor(m3d::Color(255, 0, 0, 50));
         // window.Draw(rect);
     }
 

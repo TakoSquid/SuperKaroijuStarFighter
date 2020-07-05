@@ -3,8 +3,9 @@
 namespace squid
 {
 
-    Object::Object()
-        : queuedForRemoval(false),
+    Object::Object(SharedContext *c)
+        : context(c),
+          queuedForRemoval(false),
           sortOrder(0)
     {
         transform = AddComponent<C_Transform>();

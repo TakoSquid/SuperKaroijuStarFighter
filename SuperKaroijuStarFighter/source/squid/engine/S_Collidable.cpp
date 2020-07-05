@@ -15,6 +15,10 @@ namespace squid
         playerCollisions.SetBit((int)CollisionLayer::Default);
         playerCollisions.SetBit((int)CollisionLayer::Tile);
         collisionLayers.insert(std::make_pair(CollisionLayer::Player, playerCollisions));
+
+        Bitmask projectileCollisions;
+        projectileCollisions.SetBit((int)CollisionLayer::Tile);
+        collisionLayers.insert(std::make_pair(CollisionLayer::Projectile, projectileCollisions));
     }
 
     void S_Collidable::Add(std::vector<std::shared_ptr<Object>> &objects)

@@ -6,7 +6,7 @@
 #include "squid/tools/print.hpp"
 #include "squid/engine/sceneStateMachine.hpp"
 #include "squid/engine/spriteAllocator.hpp"
-#include "titleScreenScene.hpp"
+// #include "titleScreenScene.hpp"
 #include "gameScene.hpp"
 
 namespace squid
