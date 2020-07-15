@@ -1,6 +1,5 @@
 #include <m3dia.hpp>
 #include "squid.hpp"
-///////////////
 
 int main()
 {
@@ -13,8 +12,11 @@ int main()
         consoleClear();
 
         game.Update();
+
         game.LateUpdate();
+
         game.Draw();
+
         game.CalculateDeltaTime();
     }
 

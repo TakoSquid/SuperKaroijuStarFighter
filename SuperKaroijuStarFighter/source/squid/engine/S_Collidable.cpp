@@ -7,18 +7,18 @@ namespace squid
     {
         Bitmask defaultCollisions;
         defaultCollisions.SetBit((int)CollisionLayer::Default);
-        collisionLayers.insert(std::make_pair(CollisionLayer::Default, defaultCollisions));
+        collisionsLayers.insert(std::make_pair(CollisionLayer::Default, defaultCollisions));
 
-        collisionLayers.insert(std::make_pair(CollisionLayer::Tile, Bitmask(0)));
+        collisionsLayers.insert(std::make_pair(CollisionLayer::Tile, Bitmask(0)));
 
         Bitmask playerCollisions;
         playerCollisions.SetBit((int)CollisionLayer::Default);
         playerCollisions.SetBit((int)CollisionLayer::Tile);
-        collisionLayers.insert(std::make_pair(CollisionLayer::Player, playerCollisions));
+        collisionsLayers.insert(std::make_pair(CollisionLayer::Player, playerCollisions));
 
         Bitmask projectileCollisions;
         projectileCollisions.SetBit((int)CollisionLayer::Tile);
-        collisionLayers.insert(std::make_pair(CollisionLayer::Projectile, projectileCollisions));
+        collisionsLayers.insert(std::make_pair(CollisionLayer::Projectile, projectileCollisions));
     }
 
     void S_Collidable::Add(std::vector<std::shared_ptr<Object>> &objects)
@@ -72,8 +72,9 @@ namespace squid
     void S_Collidable::Update()
     {
 
-        collisionTree.Clear();
+        ProcessCollidingObjects();
 
+        collisionTree.Clear();
         for (auto maps = collidables.begin(); maps != collidables.end(); ++maps)
         {
             for (auto collidable : maps->second)
@@ -91,7 +92,7 @@ namespace squid
         for (auto maps = collidables.begin(); maps != collidables.end(); ++maps)
         {
 
-            if (collisionLayers[maps->first].GetMask() == 0)
+            if (collisionsLayers[maps->first].GetMask() == 0)
             {
                 continue;
             }
@@ -113,7 +114,7 @@ namespace squid
                         continue;
                     }
 
-                    bool layersCollide = collisionLayers[collidable->GetLayer()].GetBit(((int)collision->GetLayer()));
+                    bool layersCollide = collisionsLayers[collidable->GetLayer()].GetBit(((int)collision->GetLayer()));
 
                     if (layersCollide)
                     {
@@ -121,6 +122,13 @@ namespace squid
 
                         if (m.colliding)
                         {
+                            auto collisionPair = objectsColliding.emplace(std::make_pair(collidable, collision));
+
+                            if (collisionPair.second)
+                            {
+                                collidable->owner_->OnCollisionEnter(collision);
+                                collision->owner_->OnCollisionEnter(collidable);
+                            }
 
                             if (collision->owner_->transform->isStatic())
                             {
@@ -128,7 +136,6 @@ namespace squid
                             }
                             else
                             {
-
                                 collidable->ResolveOverlap(m);
                             }
                         }
@@ -137,4 +144,47 @@ namespace squid
             }
         }
     }
+
+    void S_Collidable::ProcessCollidingObjects()
+    {
+
+        auto itr = objectsColliding.begin();
+        while (itr != objectsColliding.end())
+        {
+
+            auto pair = *itr;
+
+            std::shared_ptr<C_BoxCollider> first = pair.first;
+            std::shared_ptr<C_BoxCollider> second = pair.second;
+
+            if (first->owner_->IsQueuedForRemoval() || second->owner_->IsQueuedForRemoval())
+            {
+
+                first->owner_->OnCollisionExit(second);
+                second->owner_->OnCollisionExit(first);
+
+                itr = objectsColliding.erase(itr);
+            }
+            else
+            {
+                Manifold m = first->Intersects(second);
+
+                if (!m.colliding)
+                {
+                    first->owner_->OnCollisionExit(second);
+                    second->owner_->OnCollisionExit(first);
+
+                    itr = objectsColliding.erase(itr);
+                }
+                else
+                {
+                    first->owner_->OnCollisionStay(second);
+                    second->owner_->OnCollisionStay(first);
+
+                    ++itr;
+                }
+            }
+        }
+    }
+
 } // namespace squid

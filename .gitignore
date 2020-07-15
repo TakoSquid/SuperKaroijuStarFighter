@@ -42,5 +42,8 @@
 # ignore graphic test stuff
 tmp_spr/
 
+# ignore removed stuff
+removed/
+
 # ignore build folder
 SuperKaroijuStarFighter/build/

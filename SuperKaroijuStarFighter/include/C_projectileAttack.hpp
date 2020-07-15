@@ -2,6 +2,7 @@
 
 #include "component.hpp"
 #include "C_animation.hpp"
+#include "C_removeObjectOnCollisionEnter.hpp"
 #include "objectCollection.hpp"
 #include <m3dia.hpp>
 

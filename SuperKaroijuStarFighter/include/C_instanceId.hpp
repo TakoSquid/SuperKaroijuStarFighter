@@ -10,12 +10,12 @@ namespace squid
         C_InstanceID(Object *owner);
         ~C_InstanceID();
 
-        int Get() const;
+        unsigned Get() const;
 
         int classType() override;
 
     private:
-        static int count;
-        int id;
+        static unsigned int count;
+        unsigned int id;
     };
 } // namespace squid

@@ -72,6 +72,13 @@ namespace squid
         position.v = y;
     }
 
+    void Camera::setPosition(m3d::Vector2f pos)
+    {
+        needToBeUpdated = true;
+        position.u = pos.u;
+        position.v = pos.v;
+    }
+
     void Camera::translate(float x, float y)
     {
         needToBeUpdated = true;
@@ -97,6 +104,17 @@ namespace squid
     void Camera::scaling(float add)
     {
         scaling(add, add);
+    }
+
+    void Camera::setScale(float x, float y)
+    {
+        needToBeUpdated = true;
+        scale.u = x;
+        scale.v = y;
+    }
+    void Camera::setScale(float val)
+    {
+        setScale(val, val);
     }
 
 } // namespace squid

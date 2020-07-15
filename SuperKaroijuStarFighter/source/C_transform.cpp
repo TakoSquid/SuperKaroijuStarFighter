@@ -5,7 +5,7 @@
 namespace squid
 {
     C_Transform::C_Transform(Object *owner)
-        : Component(owner), position_{0.f, 0.f}, angle_(0), isStaticTransform(false)
+        : Component(owner), position_{200.f, 120.f}, angle_(0), isStaticTransform(false)
     {
     }
 

@@ -16,4 +16,8 @@ namespace squid
     void Component::LateUpdate(float deltaTime){};
 
     void Component::Draw(Window &window){};
+
+    void Component::OnCollisionEnter(std::shared_ptr<C_BoxCollider> other) {}
+    void Component::OnCollisionStay(std::shared_ptr<C_BoxCollider> other) {}
+    void Component::OnCollisionExit(std::shared_ptr<C_BoxCollider> other) {}
 } // namespace squid

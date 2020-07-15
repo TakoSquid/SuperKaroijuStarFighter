@@ -73,4 +73,28 @@ namespace squid
     {
         return sortOrder;
     }
+
+    void Object::OnCollisionEnter(std::shared_ptr<C_BoxCollider> other)
+    {
+        for (const auto &component : components_)
+        {
+            component->OnCollisionEnter(other);
+        }
+    }
+
+    void Object::OnCollisionStay(std::shared_ptr<C_BoxCollider> other)
+    {
+        for (const auto &component : components_)
+        {
+            component->OnCollisionStay(other);
+        }
+    }
+
+    void Object::OnCollisionExit(std::shared_ptr<C_BoxCollider> other)
+    {
+        for (const auto &component : components_)
+        {
+            component->OnCollisionExit(other);
+        }
+    }
 } // namespace squid

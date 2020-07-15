@@ -22,5 +22,8 @@ namespace squid
         m3d::Vector2f m_goal;
         float m_speed;
         bool m_done;
+        m3d::Vector2f calculatePlatformMovement(float deltaTime);
+        float percentBetweenWayPoints;
+        m3d::Vector2f from;
     };
 } // namespace squid

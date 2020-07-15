@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "squid/engine/window.hpp"
 
 #define C_SPRITE 1
@@ -17,11 +19,13 @@
 #define C_VELOCITY 13
 #define C_MOVEMENTANIMATION 14
 #define C_DIRECTION 15
+#define C_REMOVEOBJECTONCOLLISIONENTER 16
 
 namespace squid
 {
 
     class Object;
+    class C_BoxCollider;
 
     class Component
     {
@@ -34,6 +38,10 @@ namespace squid
         virtual void Update(float deltaTime);
         virtual void LateUpdate(float deltaTime);
         virtual void Draw(Window &window);
+
+        virtual void OnCollisionEnter(std::shared_ptr<C_BoxCollider> other);
+        virtual void OnCollisionStay(std::shared_ptr<C_BoxCollider> other);
+        virtual void OnCollisionExit(std::shared_ptr<C_BoxCollider> other);
 
         virtual int classType() = 0;
         Object *owner_;

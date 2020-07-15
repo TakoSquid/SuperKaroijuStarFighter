@@ -59,6 +59,8 @@ namespace squid
         collider->SetCollidable(m3d::BoundingBox{0, 0, 14, 8});
         collider->SetLayer(CollisionLayer::Projectile);
 
+        projectile->AddComponent<C_RemoveObjectOnCollisionEnter>();
+
         owner_->context->objects->Add(projectile);
     }
 } // namespace squid

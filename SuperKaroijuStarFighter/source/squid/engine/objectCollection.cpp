@@ -23,8 +23,6 @@ namespace squid
 
     void ObjectCollection::Draw(Window &window)
     {
-        // Sort();
-
         for (auto &o : objects)
         {
             o->Draw(window);

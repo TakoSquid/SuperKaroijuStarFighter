@@ -9,7 +9,9 @@ namespace squid
         : Component(owner),
           m_goal{0, 0},
           m_speed{100.0f},
-          m_done{true}
+          m_done{true},
+          percentBetweenWayPoints{0.0f},
+          from{owner->transform->GetPosition()}
     {
     }
 
@@ -22,6 +24,8 @@ namespace squid
     {
         m_goal = goal;
         m_done = false;
+        from = owner_->transform->GetPosition();
+        percentBetweenWayPoints = 0.0f;
     }
 
     void C_GoTowards::setSpeed(float speed)
@@ -37,23 +41,46 @@ namespace squid
     {
         if (!m_done)
         {
-            m3d::Vector2f direction = (m_goal - owner_->transform->GetPosition()).normalize() * m_speed * deltaTime;
+            // m3d::Vector2f direction = (m_goal - owner_->transform->GetPosition()).normalize() * m_speed * deltaTime;
 
-            if ((owner_->transform->GetPosition() - m_goal).sqrMagnitude() <= 1 || is_between(owner_->transform->GetPosition(), m_goal, owner_->transform->GetPosition() + direction))
-            {
-                owner_->transform->SetPosition(m_goal);
-                m_done = true;
-            }
-            else
-            {
-                owner_->transform->AddPosition(direction);
-            }
+            // if ((owner_->transform->GetPosition() - m_goal).sqrMagnitude() <= 1 || is_between(owner_->transform->GetPosition(), m_goal, owner_->transform->GetPosition() + direction))
+            // {
+            //     owner_->transform->SetPosition(m_goal);
+            //     m_done = true;
+            // }
+            // else
+            // {
+            //     owner_->transform->AddPosition(direction);
+            // }
+
+            m3d::Vector2f vel = calculatePlatformMovement(deltaTime);
+            owner_->transform->AddPosition(vel);
         }
     }
 
     bool C_GoTowards::done() const
     {
         return m_done;
+    }
+
+    m3d::Vector2f C_GoTowards::calculatePlatformMovement(float deltaTime)
+    {
+        float distanceBetweenWaypoints = (from - m_goal).magnitude();
+        percentBetweenWayPoints += deltaTime * m_speed / distanceBetweenWaypoints;
+        percentBetweenWayPoints = std::clamp(percentBetweenWayPoints, 0.0f, 1.0f);
+
+        auto t = percentBetweenWayPoints;
+
+        if (percentBetweenWayPoints >= 1.0f)
+        {
+            m_done = true;
+            owner_->transform->SetPosition(m_goal);
+            return m3d::Vector2f{0, 0};
+        }
+
+        m3d::Vector2f newPos{m_goal.u * t + from.u * (1.0f - t), m_goal.v * t + from.v * (1.0f - t)};
+
+        return newPos - owner_->transform->GetPosition();
     }
 
 } // namespace squid

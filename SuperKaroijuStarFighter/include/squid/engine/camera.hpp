@@ -30,8 +30,11 @@ namespace squid
 
         void translate(float x, float y);
         void setPosition(float x, float y);
+        void setPosition(m3d::Vector2f pos);
         void rotate(float add);
         void scaling(float x, float y);
         void scaling(float add);
+        void setScale(float x, float y);
+        void setScale(float val);
     };
 } // namespace squid

@@ -69,6 +69,10 @@ namespace squid
         void SetSortOrder(int order);
         int GetSortOrder() const;
 
+        void OnCollisionEnter(std::shared_ptr<C_BoxCollider> other);
+        void OnCollisionStay(std::shared_ptr<C_BoxCollider> other);
+        void OnCollisionExit(std::shared_ptr<C_BoxCollider> other);
+
         std::shared_ptr<C_Transform> transform;
         std::shared_ptr<C_InstanceID> instanceID;
         Camera *cam;

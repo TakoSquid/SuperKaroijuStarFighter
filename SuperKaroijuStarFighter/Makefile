@@ -56,7 +56,7 @@ CFLAGS	:=	-g -Wall -O2 -mword-relocations \
 
 CFLAGS	+=	$(INCLUDE) -DARM11 -D_3DS
 
-CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++17 -fexceptions# Bon truc à faire, même si le workaround est crade
+CXXFLAGS	:= $(CFLAGS) -fno-exceptions -fno-rtti -std=gnu++2a -fexceptions# Bon truc à faire, même si le workaround est crade
 #CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=gnu++14 #<- pu sa mère !! On autorise dynamic_cast itout, pas fou sur un potit proco
 
 ASFLAGS	:=	-g $(ARCH)

@@ -2,7 +2,7 @@
 
 namespace squid
 {
-    int C_InstanceID::count = 0;
+    unsigned int C_InstanceID::count = 0;
 
     C_InstanceID::C_InstanceID(Object *owner)
         : Component(owner),
@@ -12,7 +12,7 @@ namespace squid
 
     C_InstanceID::~C_InstanceID() {}
 
-    int C_InstanceID::Get() const
+    unsigned int C_InstanceID::Get() const
     {
         return id;
     }

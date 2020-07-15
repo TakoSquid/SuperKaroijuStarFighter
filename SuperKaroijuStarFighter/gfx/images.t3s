@@ -1,18 +1,2 @@
 --atlas -f rgba8888 -z auto
-mainTitle.png
-karoijuMain.png
-moon.png
-night.png
-vignette.png
-pressstart.png
-idle1.png
-idle2.png
-slow1.png
-slow2.png
-slow3.png
-jg.png
-smallrock.png
-spell1.png
-spell2.png
-spell3.png
-bullet.png
+tv_bg.png
