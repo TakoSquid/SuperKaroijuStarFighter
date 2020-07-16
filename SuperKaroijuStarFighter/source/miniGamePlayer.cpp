@@ -26,6 +26,7 @@ namespace squid
         // m_objects.Add(tv_screen);
 
         auto obstacle = std::make_shared<Object>(&context);
+        obstacle->transform->SetStatic(true);
         auto obstacleCollider = obstacle->AddComponent<C_BoxCollider>();
         obstacleCollider->SetCollidable(m3d::BoundingBox{0, 0, 20, 20});
 
@@ -33,7 +34,6 @@ namespace squid
 
         auto player = std::make_shared<Object>(&context);
         player->transform->SetPosition(m3d::Vector2f{20, 120});
-        player->transform->SetStatic(true);
         auto playerCollider = player->AddComponent<C_BoxCollider>();
         playerCollider->SetCollidable(m3d::BoundingBox{0, 0, 20, 20});
         player->AddComponent<C_Velocity>();
