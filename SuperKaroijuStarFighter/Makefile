@@ -37,9 +37,9 @@ APP_AUTHOR 		:= Tako
 
 TARGET		:=	$(notdir $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source source/squid source/squid/tools source/squid/engine
+SOURCES		:=	source source/squid source/squid/tools source/squid/engine source/minigames
 DATA		:=	data
-INCLUDES	:=	include include/squid include/squid/tools include/squid/engine
+INCLUDES	:=	include include/squid include/squid/tools include/squid/engine include/minigames
 GRAPHICS	:=	gfx gfx/Tiles/jungle gfx/Tiles/forest
 #GFXBUILD	:=	$(BUILD)
 ROMFS		:=	romfs

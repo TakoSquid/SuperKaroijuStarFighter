@@ -40,8 +40,12 @@ namespace squid
         CollisionLayer GetLayer() const;
         void SetLayer(CollisionLayer layerd);
 
+        bool IsTrigger() const;
+        void SetTrigger(bool isTrigger);
+
     private:
         CollisionLayer layer;
+        bool isTrigger;
     };
 
 } // namespace squid

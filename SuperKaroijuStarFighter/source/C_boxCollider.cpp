@@ -112,7 +112,7 @@ namespace squid
         rect.setYPosition(AABB.getY());
         rect.setWidth(AABB.getWidth());
         rect.setHeight(AABB.getHeight());
-        rect.setColor(m3d::Color(255, 0, 0, 50));
+        rect.setColor(m3d::Color(255, 255, 0));
         window.Draw(rect);
     }
 

@@ -42,6 +42,11 @@ namespace squid
         yMove = -input.v * moveSpeed;
 
         velocity->Set(xMove, yMove);
+
+        auto pos = owner_->transform->GetPosition();
+
+        std::cout << "x pos : " << pos.u << std::endl
+                  << "y pos : " << pos.v << std::endl;
     }
 
 } // namespace squid

@@ -13,6 +13,8 @@
 namespace squid
 {
 
+    class SharedContext;
+
     class Object
     {
     public:

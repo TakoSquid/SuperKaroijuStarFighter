@@ -22,6 +22,8 @@ namespace squid
         void ProcessRemovals();
         void Update();
 
+        Quadtree *getCollisionTree();
+
     private:
         void Resolve();
         void ProcessCollisions(std::vector<std::shared_ptr<Object>> &first, std::vector<std::shared_ptr<Object>> &second);

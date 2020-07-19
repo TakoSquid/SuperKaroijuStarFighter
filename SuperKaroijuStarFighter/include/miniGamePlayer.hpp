@@ -5,6 +5,9 @@
 #include "squid/engine/spriteAllocator.hpp"
 #include "squid/engine/objectCollection.hpp"
 
+#include "miniGame.hpp"
+#include "C_sprite.hpp"
+
 namespace squid
 {
     class MiniGamePlayer : public Scene
@@ -27,7 +30,19 @@ namespace squid
         SpriteAllocator &m_spriteAllocator;
         Window &m_window;
         SharedContext context;
-
         ObjectCollection m_objects;
+        ObjectCollection miniGameObjects;
+
+        std::shared_ptr<Object> rope;
+        std::shared_ptr<C_Sprite> tv_screen_spr;
+
+        float zoomProgress;
+        bool zoomDirection;
+
+        std::vector<MiniGame> miniGamePool;
+        MiniGame *currentMiniGame;
+
+        void updateZoomProgress(float deltaTime);
+        void setMiniGame(unsigned int index);
     };
 } // namespace squid

@@ -27,6 +27,8 @@ namespace squid
         {
             o->Draw(window);
         }
+
+        std::cout << "Collection size : " << objects.size() << std::endl;
     }
 
     void ObjectCollection::Add(std::shared_ptr<Object> object)
@@ -38,6 +40,7 @@ namespace squid
     {
         if (newObjects.size() > 0)
         {
+
             for (const auto &o : newObjects)
             {
                 o->cam = &cam;
@@ -90,6 +93,14 @@ namespace squid
     squid::Camera *ObjectCollection::getCamera()
     {
         return &cam;
+    }
+
+    void ObjectCollection::QueueEveryObjects()
+    {
+        for (auto &obj : objects)
+        {
+            obj->QueueForRemoval();
+        }
     }
     // bool ObjectCollection::LayerSort(std::shared_ptr<Object> a, std::shared_ptr<Object> b)
     // {

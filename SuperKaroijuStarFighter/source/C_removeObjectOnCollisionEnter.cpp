@@ -14,8 +14,6 @@ namespace squid
 
     void C_RemoveObjectOnCollisionEnter::OnCollisionEnter(std::shared_ptr<C_BoxCollider> other)
     {
-        owner_->QueueForRemoval();
-
         std::cout << "Enter" << std::endl;
     }
 
@@ -28,4 +26,5 @@ namespace squid
     {
         std::cout << "Exit" << std::endl;
     }
+
 } // namespace squid

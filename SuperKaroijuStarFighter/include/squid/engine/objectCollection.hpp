@@ -22,6 +22,7 @@ namespace squid
 
         void ProcessNewObjects();
         void ProcessRemovals();
+        void QueueEveryObjects();
 
         unsigned int getNumberObjects();
 

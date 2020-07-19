@@ -10,7 +10,9 @@ namespace squid
 {
     C_Sprite::C_Sprite(Object *owner)
         : Component(owner),
-          currentScale{1.0f, 1.0f}
+          currentScale{1.0f, 1.0f},
+          centerRel{0.5f, 0.5f},
+          needToBeUpdated{true}
     {
     }
 
@@ -33,9 +35,17 @@ namespace squid
 
     void C_Sprite::LateUpdate(float deltaTime)
     {
+
         spr_.setPosition(owner_->transform->GetPosition());
         spr_.setRotation(owner_->transform->GetAngle());
-        spr_.setScale(currentScale);
+
+        if (needToBeUpdated)
+        {
+            spr_.setScale(currentScale);
+            spr_.setCenterRel(centerRel.u, centerRel.v);
+
+            needToBeUpdated = false;
+        }
     }
 
     void C_Sprite::Draw(Window &window)
@@ -60,12 +70,16 @@ namespace squid
     void C_Sprite::setOpacity(float opacity)
     {
         spr_.setOpacity(255 * opacity);
+
+        needToBeUpdated = true;
     }
 
     void C_Sprite::setTint(m3d::Color tint)
     {
         spr_.setTint(tint);
         spr_.setBlend(tint.getAlpha() / 255.0f);
+
+        needToBeUpdated = true;
     }
 
     // void C_Sprite::setAllocator(SpriteAllocator *spriteAllocator)
@@ -83,21 +97,33 @@ namespace squid
         return spr_.getSize();
     }
 
+    void C_Sprite::setCenter(m3d::Vector2f center)
+    {
+        centerRel = center;
+
+        needToBeUpdated = true;
+    }
+
     void C_Sprite::flipX(bool flipX)
     {
         if (flipX)
             currentScale.u = -1.0f;
+
+        needToBeUpdated = true;
     }
     void C_Sprite::flipY(bool flipY)
     {
-
         if (flipY)
             currentScale.v *= -1.0f;
+
+        needToBeUpdated = true;
     }
 
     void C_Sprite::setScale(m3d::Vector2f scale)
     {
         currentScale = scale;
+
+        needToBeUpdated = true;
     }
 
 } // namespace squid

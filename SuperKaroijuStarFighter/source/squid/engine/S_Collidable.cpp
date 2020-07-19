@@ -31,6 +31,8 @@ namespace squid
             if (collider)
             {
 
+                o->context->collisionTree = getCollisionTree();
+
                 CollisionLayer layer = collider->GetLayer();
 
                 auto itr = collidables.find(layer);
@@ -71,6 +73,8 @@ namespace squid
 
     void S_Collidable::Update()
     {
+        if (collidables.size() > 0)
+            std::cout << "Collidables : " << collidables.size() << std::endl;
 
         ProcessCollidingObjects();
 
@@ -130,13 +134,16 @@ namespace squid
                                 collision->owner_->OnCollisionEnter(collidable);
                             }
 
-                            if (collision->owner_->transform->isStatic())
+                            if (!collision->IsTrigger() && !collidable->IsTrigger())
                             {
-                                collidable->ResolveOverlap(m);
-                            }
-                            else
-                            {
-                                collidable->ResolveOverlap(m);
+                                if (collision->owner_->transform->isStatic())
+                                {
+                                    collidable->ResolveOverlap(m);
+                                }
+                                else
+                                {
+                                    collidable->ResolveOverlap(m);
+                                }
                             }
                         }
                     }
@@ -185,6 +192,11 @@ namespace squid
                 }
             }
         }
+    }
+
+    Quadtree *S_Collidable::getCollisionTree()
+    {
+        return &collisionTree;
     }
 
 } // namespace squid

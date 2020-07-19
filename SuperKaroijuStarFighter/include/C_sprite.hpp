@@ -20,6 +20,7 @@ namespace squid
         void setOpacity(float opacity);
         void setTint(m3d::Color tint);
         void setScale(m3d::Vector2f scale);
+        void setCenter(m3d::Vector2f center);
         void flipX(bool flipX);
         void flipY(bool flipY);
 
@@ -28,5 +29,7 @@ namespace squid
     private:
         m3d::Sprite spr_;
         m3d::Vector2f currentScale;
+        m3d::Vector2f centerRel;
+        bool needToBeUpdated;
     };
 } // namespace squid
