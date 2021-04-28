@@ -1,2 +1,2 @@
 # ✨ Super Karoiju Star Fighter ✨
-A little and poorly written homebrew and game engine experiment
+A little 3DS game engine and homebrew game !
