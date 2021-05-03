@@ -1,7 +1,7 @@
 # ✨ Super Karoiju Star Fighter ✨
 A little 3DS game engine and homebrew game !
 
-# FrameWork features
+# Framework features
 * Basic C.O.M impmentation
 * Animation component
 * Camera component
