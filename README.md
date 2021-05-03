@@ -1,6 +1,15 @@
 # ✨ Super Karoiju Star Fighter ✨
 A little 3DS game engine and homebrew game !
 
+# FrameWork features
+* Basic C.O.M impmentation
+* Animation component
+* Camera component
+* Rectangular collision detection with quadtree
+* Scene system with manager
+* [Tiled](https://www.mapeditor.org/) map file support
+* Basic sound support
+
 # Some gifs
 <p align="center">
   <img width=500 src="https://user-images.githubusercontent.com/31723113/116421350-0aa62a00-a83f-11eb-9ef0-d1309cd867d1.gif"><br>
