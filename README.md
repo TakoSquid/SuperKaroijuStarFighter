@@ -2,7 +2,7 @@
 A little 3DS framework and homebrew game !
 
 # Framework features
-* Basic C.O.M impmentation
+* Basic C.O.M implementation
 * Animation component
 * Camera component
 * Rectangular collision detection with quadtree
